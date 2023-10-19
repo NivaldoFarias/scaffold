@@ -7,11 +7,11 @@
 .husky/_
 .env
 *.userprefs
-package-lock.json
 logs/
 .scannerwork
 
 # Build results
+dist/
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/

@@ -1,4 +1,11 @@
 {
-    "include": ["src/**/*.ts"],
-    "extends": "@tsconfig/bun/tsconfig.json"
+    "include": ["src/**/*.ts", "src/app/index.ts", "src/index.ts", "src/build.ks"],
+    "extends": "@tsconfig/node20/tsconfig.json",
+    "compilerOptions": {
+        "lib": ["ESNext", "DOM"],
+        "target": "ESNext",
+        "moduleResolution": "NodeNext",
+        "noEmit": true,
+        "allowImportingTsExtensions": true
+    }
 }

@@ -2,7 +2,14 @@
     "name": "scaffold",
     "version": "0.0.1",
     "description": "Command line interface to scaffold TypeScript or JavaScript projects",
+    "main": "src/index.ts",
     "type": "module",
+    "scripts": {
+        "build": "node src/build.js"
+    },
+    "bin": {
+        "scaffold": "bin/scaffold.cjs"
+    },
     "keywords": [
         "cli"
     ],
@@ -11,13 +18,19 @@
         "url": "https://github.com/NivaldoFarias"
     },
     "license": "MIT",
+    "dependencies": {
+        "@clack/prompts": "^0.7.0",
+        "picocolors": "^1.0.0"
+    },
     "devDependencies": {
-        "@tsconfig/bun": "^1.0.1",
+        "@tsconfig/node20": "^20.1.2",
+        "@types/node": "^20.8.7",
         "@typescript-eslint/eslint-plugin": "^6.7.5",
         "@typescript-eslint/parser": "^6.7.5",
-        "bun-types": "^1.0.6",
+        "esbuild": "^0.19.5",
         "eslint": "^8.50.0",
         "eslint-config-prettier": "^9.0.0",
+        "eslint-define-config": "^1.24.1",
         "eslint-plugin-prettier": "^5.0.0",
         "eslint-plugin-unicorn": "^48.0.1",
         "prettier": "^3.0.3",
