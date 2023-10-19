@@ -1,0 +1,26 @@
+{
+    "name": "scaffold",
+    "version": "0.0.1",
+    "description": "Command line interface to scaffold TypeScript or JavaScript projects",
+    "type": "module",
+    "keywords": [
+        "cli"
+    ],
+    "author": {
+        "name": "Nivaldo Farias",
+        "url": "https://github.com/NivaldoFarias"
+    },
+    "license": "MIT",
+    "devDependencies": {
+        "@tsconfig/bun": "^1.0.1",
+        "@typescript-eslint/eslint-plugin": "^6.7.5",
+        "@typescript-eslint/parser": "^6.7.5",
+        "bun-types": "^1.0.6",
+        "eslint": "^8.50.0",
+        "eslint-config-prettier": "^9.0.0",
+        "eslint-plugin-prettier": "^5.0.0",
+        "eslint-plugin-unicorn": "^48.0.1",
+        "prettier": "^3.0.3",
+        "typescript": "^5.2.2"
+    }
+}
