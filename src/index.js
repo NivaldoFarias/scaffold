@@ -1,4 +1,4 @@
-import app from "./app/index.ts";
+import { app } from "src/app/index.js";
 
 execute();
 

@@ -1,0 +1,9 @@
+{
+    "include": ["src/**/*.js"],
+    "extends": "@tsconfig/node20/tsconfig.json",
+    "compilerOptions": {
+        "noEmit": true,
+        "checkJs": true,
+        "baseUrl": "./"
+    }
+}

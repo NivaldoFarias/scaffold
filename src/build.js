@@ -5,14 +5,13 @@ build();
 async function build() {
 	try {
 		await esbuild.build({
-			banner: { js: "#!/usr/bin/env node" },
 			platform: "node",
-			target: "node20",
+			target: "node18",
 			outfile: "bin/scaffold.cjs",
 			entryPoints: ["src/index.ts"],
+			banner: { js: "#!/usr/bin/env node" },
 			minify: true,
 			bundle: true,
-			sourcemap: true,
 			treeShaking: true,
 		});
 	} catch (error) {

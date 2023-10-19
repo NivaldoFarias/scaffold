@@ -3,7 +3,7 @@ import { setTimeout } from "node:timers/promises";
 import * as cli from "@clack/prompts";
 import color from "picocolors";
 
-export default async function app() {
+export async function app() {
 	cli.intro(color.inverse("Scaffold CLI"));
 
 	const name = await cli.text({
