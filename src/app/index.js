@@ -7,8 +7,8 @@ export async function app() {
 	cli.intro(color.inverse("Scaffold CLI"));
 
 	const name = await cli.text({
-		message: "What is your name?",
-		placeholder: "Anonymous",
+		message: "What is the name of the project?",
+		placeholder: "my-project",
 	});
 
 	if (cli.isCancel(name)) {
@@ -32,7 +32,6 @@ export async function app() {
 		options: [
 			{ value: "ts", label: "TypeScript" },
 			{ value: "js", label: "JavaScript" },
-			{ value: "coffee", label: "CoffeeScript", hint: "oh no" },
 		],
 	});
 

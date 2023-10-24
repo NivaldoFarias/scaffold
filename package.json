@@ -2,7 +2,7 @@
     "name": "scaffold",
     "version": "0.0.1",
     "description": "Command line interface to scaffold TypeScript and JavaScript projects",
-    "main": "src/index.ts",
+    "main": "src/index.js",
     "type": "module",
     "scripts": {
         "build": "node src/build.js"

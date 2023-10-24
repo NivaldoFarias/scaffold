@@ -8,7 +8,7 @@ async function build() {
 			platform: "node",
 			target: "node18",
 			outfile: "bin/scaffold.cjs",
-			entryPoints: ["src/index.ts"],
+			entryPoints: ["src/index.js"],
 			banner: { js: "#!/usr/bin/env node" },
 			minify: true,
 			bundle: true,
