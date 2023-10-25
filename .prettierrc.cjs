@@ -1,4 +1,4 @@
-/** @type {import("prettier").Config} */
+/** @type {import("prettier").Config & import("@ianvs/prettier-plugin-sort-imports").PluginConfig} */
 module.exports = {
 	semi: true,
 	tabWidth: 2,
@@ -26,4 +26,6 @@ module.exports = {
 			},
 		},
 	],
+	plugins: ["@ianvs/prettier-plugin-sort-imports"],
+	importOrder: ["<BUILTIN_MODULES>", "", "<THIRD_PARTY_MODULES>", "", "^~/", "^[.][.]/", "^[.]/"],
 };

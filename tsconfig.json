@@ -1,0 +1,39 @@
+{
+    "include": ["src/**/*.ts", ".eslintrc.cjs", ".prettierrc.cjs", "tsup.config.ts", "reset.d.ts"],
+    "compilerOptions": {
+        /* LANGUAGE COMPILATION OPTIONS */
+        "target": "ES2020",
+        "lib": ["DOM", "DOM.Iterable", "ES2020"],
+        "module": "Node16",
+        "moduleResolution": "nodenext",
+        "allowJs": true,
+        "checkJs": true,
+        "baseUrl": "./",
+        "paths": {
+            "~/*": ["./src/*"]
+        },
+        "resolveJsonModule": true,
+
+        /* EMIT RULES */
+        "outDir": "./dist",
+        "noEmit": true,
+        "sourceMap": true,
+        "declaration": true,
+        "declarationMap": true,
+        "removeComments": true,
+
+        /* TYPE CHECKING RULES */
+        "strict": true,
+        "noUnusedLocals": true,
+        "noImplicitOverride": true,
+        "useUnknownInCatchVariables": true,
+        "noFallthroughCasesInSwitch": true,
+
+        /* OTHER OPTIONS */
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "useDefineForClassFields": true,
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}
