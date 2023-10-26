@@ -7,10 +7,14 @@ export default defineConfig({
 	entry: ["src/index.ts"],
 	format: ["esm"],
 	banner: {
-		js: "#!/usr/bin/env node",
+		js: `#!/usr/bin/env node 
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);`,
 	},
 	minify: !isDev,
+	shims: true,
 	target: "node18",
+	cjsInterop: true,
 	outDir: "dist",
 	platform: "node",
 	onSuccess: isDev ? "node dist/index.js" : undefined,

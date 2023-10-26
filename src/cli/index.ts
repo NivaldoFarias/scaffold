@@ -4,6 +4,8 @@ import * as prompt from "@clack/prompts";
 import color from "picocolors";
 
 import { getPackageManager } from "~/utils/get-package-manager.js";
+import { IsTTYError } from "~/utils/is-tty-error.js";
+import { logger } from "~/utils/logger.js";
 import { validateAppName } from "~/utils/validate-app-name.js";
 import { validateImportAlias } from "~/utils/validate-import-alias.js";
 
@@ -12,6 +14,14 @@ import OPTIONS from "~/json/options.json";
 
 export async function cli() {
 	try {
+		if (process.env.TERM_PROGRAM?.toLowerCase().includes("mintty")) {
+			logger.warn(`  WARNING: It looks like you are using MinTTY, which is non-interactive. This is most likely because you are 
+  using Git Bash. If that's that case, please use Git Bash from another terminal, such as Windows Terminal. Alternatively, you 
+  can provide the arguments from the CLI directly: https://create.t3.gg/en/installation#experimental-usage to skip the prompts.`);
+
+			throw new IsTTYError("Non-interactive environment");
+		}
+
 		const pkgManager = getPackageManager();
 
 		prompt.intro(color.inverse(DEFAULTS.app_intro));
@@ -172,8 +182,24 @@ export async function cli() {
 			installDependencies: project.install === true,
 		};
 	} catch (error) {
-		if (error instanceof Error && error.message === "PROCESS_CANCELLED") {
-			process.on("SIGINT", () => process.exit(0));
+		// If the user is not calling create-t3-app from an interactive terminal, inquirer will throw an IsTTYError
+		// If this happens, we catch the error, tell the user what has happened, and then continue to run the program with a default app
+		if (error instanceof IsTTYError) {
+			logger.warn(`scaffold.cli needs an interactive terminal to provide options`);
+
+			const shouldContinue = await prompt.confirm({
+				message: `Continue scaffolding a default app?`,
+				initialValue: true,
+			});
+
+			if (!shouldContinue) {
+				logger.info("Exiting...");
+				process.exit(0);
+			}
+
+			logger.info(`Bootstrapping a default app in ./${DEFAULTS.project_name}`);
+		} else if (error instanceof Error && error.message === "PROCESS_CANCELLED") {
+			process.exit(0);
 		} else throw error;
 	}
 }
