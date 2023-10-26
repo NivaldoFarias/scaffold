@@ -63,7 +63,7 @@ const REGEX = {
 	SPECIAL_CHARACTERS: /[~'!()*]/,
 };
 
-export default function validatePkgName(name: string | null | undefined) {
+export function validatePkgName(name: string | null | undefined) {
 	const warnings: string[] = [];
 	const errors: string[] = [];
 

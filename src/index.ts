@@ -1,5 +1,5 @@
-import { app } from "src/app/index.js";
+import { cli } from "src/cli/index.js";
 
-app().catch((error) => {
+cli().catch((error) => {
 	console.error(error);
 });

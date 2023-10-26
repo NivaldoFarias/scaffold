@@ -1,5 +1,7 @@
 # `🏗 scaffold.cli`
 
+###### the project takes A LOT of inspiration from [`create-t3-app`](https://github.com/t3-oss/create-t3-app/). Thank you!
+
 ## Usage
 
 ### With `npx`

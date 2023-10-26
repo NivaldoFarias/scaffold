@@ -2,8 +2,8 @@
 module.exports = {
 	root: true,
 	extends: [
+		"prettier",
 		"eslint:recommended",
-		"plugin:prettier/recommended",
 		"plugin:@typescript-eslint/stylistic-type-checked",
 		"plugin:@typescript-eslint/strict-type-checked",
 	],

@@ -1,57 +1,74 @@
 {
-    "ENVIRONMENTS": [
+    "environments": [
         { "value": "browser", "label": "Browser only" },
         { "value": "node", "label": "Node.js only" },
         { "value": "both", "label": "Both" }
     ],
-    "FRAMEWORKS": {
+    "frameworks": {
         "browser": [
             { "value": "react", "label": "React" },
             { "value": "vue", "label": "Vue" },
             { "value": "svelte", "label": "Svelte" },
             { "value": "angular", "label": "Angular" },
-            { "value": "vanilla", "label": "Vanilla JS", "hint": "oh no" }
+            { "value": "none", "label": "None", "hint": "Vanilla JS" }
         ],
         "node": [
             { "value": "nestjs", "label": "NestJS" },
             { "value": "express", "label": "Express.js" },
             { "value": "koa", "label": "Koa" },
             { "value": "fastify", "label": "Fastify" },
-            { "value": "vanilla", "label": "Vanilla JS", "hint": "oh no" }
+            { "value": "none", "label": "None", "hint": "Vanilla JS" }
         ],
         "both": [
             { "value": "nextjs", "label": "Next.js" },
             { "value": "nuxtjs", "label": "Nuxt.js" },
-            { "value": "sveltekit", "label": "SvelteKit" }
+            { "value": "sveltekit", "label": "SvelteKit" },
+            { "value": "none", "label": "None" }
         ]
     },
-    "LANGUAGES": [
+    "languages": [
         { "value": "typescript", "label": "TypeScript" },
-        { "value": "javascript", "label": "JavaScript" },
-        { "value": "both", "label": "A mix of both" }
+        { "value": "javascript", "label": "JavaScript" }
     ],
-    "ORM": {
+    "authentication": {
+        "typescript": [
+            { "value": "nextauth", "label": "NextAuth.js" },
+            { "value": "passport", "label": "Passport.js" },
+            { "value": "none", "label": "None" }
+        ],
+        "javascript": [
+            { "value": "passport", "label": "Passport.js" },
+            { "value": "none", "label": "None" }
+        ]
+    },
+    "database": {
         "typescript": [
             { "value": "typeorm", "label": "TypeORM" },
             { "value": "prisma", "label": "Prisma" },
             { "value": "sequelize", "label": "Sequelize" },
             { "value": "drizzle", "label": "Drizzle" },
-            { "value": "mongoose", "label": "Mongoose" }
+            { "value": "mongoose", "label": "Mongoose" },
+            { "value": "none", "label": "None" }
         ],
         "javascript": [
             { "value": "prisma", "label": "Prisma" },
             { "value": "mongoose", "label": "Mongoose" },
-            { "value": "sequelize", "label": "Sequelize" }
+            { "value": "sequelize", "label": "Sequelize" },
+            { "value": "none", "label": "None" }
         ]
     },
-    "TOOLING": [
+    "tooling": [
         { "value": "eslint", "label": "ESLint" },
         { "value": "prettier", "label": "Prettier" }
     ],
-    "TOOLING_PLUGINS": {
+    "tooling_plugins": {
         "eslint": {
             "typescript": [
-                { "value": "@typescript-eslint/parser", "label": "@typescript-eslint/parser" },
+                {
+                    "value": "@typescript-eslint/parser",
+                    "label": "@typescript-eslint/parser",
+                    "hint": "recommended"
+                },
                 {
                     "value": "@typescript-eslint/eslint-plugin",
                     "label": "@typescript-eslint/eslint-plugin"
@@ -62,12 +79,19 @@
                 {
                     "value": "eslint-plugin-prettier-vue",
                     "label": "eslint-plugin-prettier-vue",
-                    "hint": "formatting"
+                    "hint": "setups prettier formatting"
                 }
             ],
-            "react": [{ "value": "eslint-plugin-react", "label": "eslint-plugin-react" }],
+            "react": [
+                { "value": "eslint-plugin-react", "label": "eslint-plugin-react" },
+                { "value": "eslint-plugin-react-hooks", "label": "eslint-plugin-react-hooks" }
+            ],
             "svelte": [
-                { "value": "svelte-eslint-parser", "label": "svelte-eslint-parser" },
+                {
+                    "value": "svelte-eslint-parser",
+                    "label": "svelte-eslint-parser",
+                    "hint": "recommended"
+                },
                 { "value": "eslint-plugin-svelte", "label": "eslint-plugin-svelte" }
             ],
             "nextjs": [{ "value": "eslint-plugin-next", "label": "eslint-plugin-next" }],
@@ -81,12 +105,27 @@
                 {
                     "value": "@darraghor/eslint-plugin-nestjs-typed",
                     "label": "@darraghor/eslint-plugin-nestjs-typed",
-                    "hint": "(unofficial)"
+                    "hint": "unofficial"
                 }
             ]
         },
         "prettier": {
+            "typescript": [
+                {
+                    "value": "@ianvs/prettier-plugin-sort-imports",
+                    "label": "@ianvs/prettier-plugin-sort-imports"
+                },
+                {
+                    "value": "prettier-plugin-jsdoc",
+                    "label": "prettier-plugin-jsdoc"
+                }
+            ],
             "javascript": [
+                {
+                    "value": "@ianvs/prettier-plugin-sort-imports",
+                    "label": "@ianvs/prettier-plugin-sort-imports",
+                    "hint": "ESM-only"
+                },
                 {
                     "value": "prettier-plugin-jsdoc",
                     "label": "prettier-plugin-jsdoc"
