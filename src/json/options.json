@@ -16,7 +16,6 @@
             { "value": "nestjs", "label": "NestJS" },
             { "value": "express", "label": "Express.js" },
             { "value": "koa", "label": "Koa" },
-            { "value": "fastify", "label": "Fastify" },
             { "value": "none", "label": "None", "hint": "Vanilla JS" }
         ],
         "both": [

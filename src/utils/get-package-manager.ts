@@ -1,7 +1,9 @@
+import { env } from "node:process";
+
 export type PackageManager = "npm" | "pnpm" | "yarn" | "bun";
 
 export function getPackageManager(): PackageManager {
-	const userAgent = process.env.npm_config_user_agent;
+	const userAgent = env.npm_config_user_agent;
 
 	if (userAgent) {
 		if (userAgent.startsWith("yarn")) {

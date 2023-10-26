@@ -1,24 +1,27 @@
-import { setTimeout } from "node:timers/promises";
+import { argv } from "node:process";
 
 import * as prompt from "@clack/prompts";
 import color from "picocolors";
 
-import OPTIONS from "~/json/options.json";
 import { getPackageManager } from "~/utils/get-package-manager.js";
 import { validateAppName } from "~/utils/validate-app-name.js";
+import { validateImportAlias } from "~/utils/validate-import-alias.js";
+
+import DEFAULTS from "~/json/defaults.json";
+import OPTIONS from "~/json/options.json";
 
 export async function cli() {
 	try {
-		const packageManager = getPackageManager();
+		const pkgManager = getPackageManager();
 
-		prompt.intro(color.inverse("🏗  Scaffold.cli "));
+		prompt.intro(color.inverse(DEFAULTS.app_intro));
 
-		const results = await prompt.group(
+		const project = await prompt.group(
 			{
 				name: () => {
 					return prompt.text({
 						message: "How should the project be called?",
-						placeholder: "my-project",
+						defaultValue: argv[0] ?? DEFAULTS.project_name,
 						validate: validateAppName,
 					});
 				},
@@ -100,6 +103,27 @@ export async function cli() {
 						options,
 					});
 				},
+				git: ({ results }) => {
+					return prompt.confirm({
+						message: "Initialize a Git repository and stage the changes?",
+						initialValue: true,
+					});
+				},
+				install: ({ results }) => {
+					return prompt.confirm({
+						message:
+							`Install dependencies via '${pkgManager}` +
+							(pkgManager === "yarn" ? `'?` : ` install'?`),
+						initialValue: true,
+					});
+				},
+				import: () => {
+					return prompt.text({
+						message: "What import alias would you like to use?",
+						initialValue: DEFAULTS.import_alias,
+						validate: validateImportAlias,
+					});
+				},
 			},
 			{
 				onCancel: ({ results }) => {
@@ -110,19 +134,46 @@ export async function cli() {
 			},
 		);
 
-		const spinner = prompt.spinner();
-		spinner.start("Installing via npm");
+		const packages: string[] = [];
 
-		await setTimeout(3000);
+		for (const [key, value] of Object.entries(project)) {
+			switch (key as keyof typeof project) {
+				case "language":
+				case "database":
+				case "framework":
+				case "authentication": {
+					if (typeof value === "string" && value !== "none") {
+						packages.push(value);
+					}
 
-		spinner.stop("Installed via npm");
+					break;
+				}
+				case "tooling":
+				case "plugins": {
+					if (Array.isArray(value) && value.length > 0) {
+						packages.push(...(value as string[]));
+					}
 
-		prompt.outro("You're all set!");
+					break;
+				}
+				default: {
+					break;
+				}
+			}
+		}
 
-		await setTimeout(1000);
+		return {
+			packages,
+			pkgManager,
+			projectName: project.name,
+			language: project.language,
+			importAlias: project.import,
+			gitInit: project.git === true,
+			installDependencies: project.install === true,
+		};
 	} catch (error) {
 		if (error instanceof Error && error.message === "PROCESS_CANCELLED") {
-			return process.on("SIGINT", () => process.exit(0));
+			process.on("SIGINT", () => process.exit(0));
 		} else throw error;
 	}
 }

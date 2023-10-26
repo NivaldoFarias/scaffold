@@ -1,5 +1,12 @@
-import { cli } from "src/cli/index.js";
+import { cli } from "~/cli/index.js";
+import { scaffoldProject } from "~/scripts/scaffold-project.js";
 
-cli().catch((error) => {
+exec().catch((error) => {
 	console.error(error);
 });
+
+async function exec() {
+	const results = await cli();
+
+	await scaffoldProject(results);
+}
