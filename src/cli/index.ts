@@ -182,7 +182,7 @@ export async function cli() {
 			installDependencies: project.install === true,
 		};
 	} catch (error) {
-		// If the user is not calling create-t3-app from an interactive terminal, inquirer will throw an IsTTYError
+		// If the user is not calling scaffold.cli from an interactive terminal, inquirer will throw an IsTTYError
 		// If this happens, we catch the error, tell the user what has happened, and then continue to run the program with a default app
 		if (error instanceof IsTTYError) {
 			logger.warn(`scaffold.cli needs an interactive terminal to provide options`);
