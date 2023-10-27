@@ -22,7 +22,7 @@ export async function cli() {
 			throw new IsTTYError("Non-interactive environment");
 		}
 
-		const pkgManager = getPackageManager();
+		const packageManager = getPackageManager();
 
 		prompt.intro(color.inverse(DEFAULTS.app_intro));
 
@@ -82,33 +82,26 @@ export async function cli() {
 					const options = [];
 
 					if (tooling.includes("eslint")) {
-						if (language === "typescript") {
-							options.push(...OPTIONS.tooling_plugins.eslint.typescript);
-						}
-
-						if (typeof framework === "string" && framework in OPTIONS.tooling_plugins.eslint) {
+						if (typeof framework === "string" && framework in OPTIONS.plugins.eslint) {
 							options.push(
-								...OPTIONS.tooling_plugins.eslint[
-									framework as keyof typeof OPTIONS.tooling_plugins.eslint
-								],
+								...OPTIONS.plugins.eslint[framework as keyof typeof OPTIONS.plugins.eslint],
 							);
 						}
 					}
 
 					if (tooling.includes("prettier")) {
 						options.push(
-							...OPTIONS.tooling_plugins.prettier[
-								language as keyof typeof OPTIONS.tooling_plugins.prettier
-							],
+							...OPTIONS.plugins.prettier[language as keyof typeof OPTIONS.plugins.prettier],
 						);
 
 						if (database === "prisma") {
-							options.push(...OPTIONS.tooling_plugins.prettier.prisma);
+							options.push(...OPTIONS.plugins.prettier.prisma);
 						}
 					}
 
 					return prompt.multiselect({
-						message: "Which tooling plugins do you want to use?",
+						message:
+							"Some packages you selected have available plugins. Which plugins do you wish to use?",
 						required: false,
 						options,
 					});
@@ -122,8 +115,8 @@ export async function cli() {
 				install: ({ results }) => {
 					return prompt.confirm({
 						message:
-							`Install dependencies via '${pkgManager}` +
-							(pkgManager === "yarn" ? `'?` : ` install'?`),
+							`Install dependencies via '${packageManager}` +
+							(packageManager === "yarn" ? `'?` : ` install'?`),
 						initialValue: true,
 					});
 				},
@@ -174,7 +167,7 @@ export async function cli() {
 
 		return {
 			packages,
-			pkgManager,
+			packageManager,
 			projectName: project.name,
 			language: project.language,
 			importAlias: project.import,
@@ -182,8 +175,10 @@ export async function cli() {
 			installDependencies: project.install === true,
 		};
 	} catch (error) {
-		// If the user is not calling scaffold.cli from an interactive terminal, inquirer will throw an IsTTYError
-		// If this happens, we catch the error, tell the user what has happened, and then continue to run the program with a default app
+		// If the user is not calling scaffold.cli from an interactive terminal,
+		// inquirer will throw an IsTTYError.
+		// If this happens, we catch the error, tell the user what has happened,
+		// and then continue to run the program with a default app
 		if (error instanceof IsTTYError) {
 			logger.warn(`scaffold.cli needs an interactive terminal to provide options`);
 

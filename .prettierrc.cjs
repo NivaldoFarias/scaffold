@@ -20,6 +20,7 @@ module.exports = {
 	overrides: [
 		{
 			files: ["*.d.ts", "*.json"],
+			excludeFiles: ["package.json"],
 			options: {
 				tabWidth: 4,
 				useTabs: false,

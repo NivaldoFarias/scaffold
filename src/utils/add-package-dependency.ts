@@ -4,34 +4,35 @@ import fs from "fs-extra";
 import sortPackageJson from "sort-package-json";
 import { type PackageJson } from "type-fest";
 
-import dependencyVersionMap from "~/json/dependency-versions.json";
+import packagesDependencies from "~/json/packages-dependencies.json";
 
 export interface AddPackageDependencyOptions {
-	dependencies: (keyof typeof dependencyVersionMap)[];
+	dependencies: (keyof typeof packagesDependencies)[];
 	projectDir: string;
-	devMode: boolean;
 }
 
-export const addPackageDependency = ({
-	dependencies,
-	projectDir,
-	devMode,
-}: AddPackageDependencyOptions) => {
-	const pkgJson = fs.readJSONSync(path.join(projectDir, "package.json")) as PackageJson;
+export const addPackageDependency = ({ dependencies, projectDir }: AddPackageDependencyOptions) => {
+	const packageJson = fs.readJSONSync(path.join(projectDir, "package.json")) as PackageJson;
 
-	for (const pkgName of dependencies) {
-		const version = dependencyVersionMap[pkgName];
+	const dependencyVersionMap = dependencies
+		.map((dependency) => packagesDependencies[dependency])
+		.flat();
 
-		if (devMode && pkgJson.devDependencies) {
-			pkgJson.devDependencies[pkgName] = version;
-		} else if (pkgJson.dependencies) {
-			pkgJson.dependencies[pkgName] = version;
+	for (const pkg of dependencyVersionMap) {
+		if (pkg.dev) {
+			if (!packageJson.devDependencies) packageJson.devDependencies = {};
+
+			packageJson.devDependencies[pkg.name] = pkg.version;
+		} else {
+			if (!packageJson.dependencies) packageJson.dependencies = {};
+
+			packageJson.dependencies[pkg.name] = pkg.version;
 		}
 	}
 
-	const sortedPkgJson = sortPackageJson(pkgJson);
+	const sortedPkgJson = sortPackageJson(packageJson);
 
 	fs.writeJSONSync(path.join(projectDir, "package.json"), sortedPkgJson, {
-		spaces: 4,
+		spaces: 2,
 	});
 };

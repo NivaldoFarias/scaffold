@@ -6,38 +6,32 @@ import type { PackageJson } from "type-fest";
 import { addPackageDependency } from "~/utils/add-package-dependency.js";
 
 import { PKG_ROOT } from "~/consts.js";
-import type { Installer } from "~/installers/index.js";
+import type { AvailablePackages, Installer } from "~/installers/index.js";
 
-export const prismaInstaller: Installer = ({ projectDir, packages }) => {
+export const eslintInstaller: Installer = ({ projectDir, packages }) => {
+	const plugins = Object.keys(packages).filter((pkg) => {
+		return pkg.includes("eslint-plugin") && packages[pkg as AvailablePackages].inUse;
+	}) as AvailablePackages[];
+
 	addPackageDependency({
 		projectDir,
-		dependencies: ["prisma"],
+		dependencies: ["eslint", ...plugins],
 	});
 
 	const templatePkgsDir = path.join(PKG_ROOT, "templates/packages");
 
-	const schemaSrc = path.join(
-		templatePkgsDir,
-		"prisma/schema",
-		packages["next-auth"].inUse ? "with-auth.prisma" : "base.prisma",
-	);
-	const schemaDest = path.join(projectDir, "prisma/schema.prisma");
-
-	const clientSrc = path.join(templatePkgsDir, "src/server/db/db-prisma.ts");
-	const clientDest = path.join(projectDir, "src/server/db.ts");
+	const schemaSrc = path.join(templatePkgsDir, "eslint");
+	const schemaDest = path.join(projectDir, "eslint/.eslintrc.cjs");
 
 	const packageJsonPath = path.join(projectDir, "package.json");
 	const packageJsonContent = fs.readJSONSync(packageJsonPath) as PackageJson;
 
 	packageJsonContent.scripts = {
 		...packageJsonContent.scripts,
-		"postinstall": "prisma generate",
-		"prisma:push": "prisma db push",
-		"prisma:studio": "prisma studio",
+		lint: "eslint . --ext .ts,.tsx,.js,.jsx",
 	};
 
 	fs.copySync(schemaSrc, schemaDest);
-	fs.copySync(clientSrc, clientDest);
 
 	fs.writeJSONSync(packageJsonPath, packageJsonContent, {
 		spaces: 2,

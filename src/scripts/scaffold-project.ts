@@ -17,7 +17,7 @@ export async function scaffoldProject(results: Awaited<ReturnType<typeof cli>>) 
 	const srcDir = path.join(PKG_ROOT, `templates/base/${results.language}`);
 
 	if (!results.installDependencies) {
-		prompt.note(`\nUsing: ${chalk.cyan.bold(results.pkgManager)}\n`);
+		prompt.note(`\nUsing: ${chalk.cyan.bold(results.packageManager)}\n`);
 	} else {
 		prompt.note("");
 	}

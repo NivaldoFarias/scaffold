@@ -8,8 +8,8 @@
         "browser": [
             { "value": "react", "label": "React" },
             { "value": "vue", "label": "Vue" },
-            { "value": "svelte", "label": "Svelte" },
             { "value": "angular", "label": "Angular" },
+            { "value": "htmx", "label": "HTMX", "hint": "I like you, you're cool." },
             { "value": "none", "label": "None", "hint": "Vanilla JS" }
         ],
         "node": [
@@ -19,19 +19,23 @@
             { "value": "none", "label": "None", "hint": "Vanilla JS" }
         ],
         "both": [
-            { "value": "nextjs", "label": "Next.js" },
-            { "value": "nuxtjs", "label": "Nuxt.js" },
-            { "value": "sveltekit", "label": "SvelteKit" },
+            { "value": "next", "label": "Next.js" },
             { "value": "none", "label": "None" }
         ]
     },
+    "styling": [
+        { "value": "sass", "label": "SASS/SCSS" },
+        { "value": "tailwindcss", "label": "Tailwind CSS" },
+        { "value": "styled-components", "label": "Styled Components" },
+        { "value": "none", "label": "None" }
+    ],
     "languages": [
         { "value": "typescript", "label": "TypeScript" },
         { "value": "javascript", "label": "JavaScript" }
     ],
     "authentication": {
         "typescript": [
-            { "value": "nextauth", "label": "NextAuth.js" },
+            { "value": "next-auth", "label": "NextAuth.js" },
             { "value": "passport", "label": "Passport.js" },
             { "value": "none", "label": "None" }
         ],
@@ -60,50 +64,28 @@
         { "value": "eslint", "label": "ESLint" },
         { "value": "prettier", "label": "Prettier" }
     ],
-    "tooling_plugins": {
+    "plugins": {
         "eslint": {
             "typescript": [
                 {
-                    "value": "@typescript-eslint/parser",
-                    "label": "@typescript-eslint/parser",
+                    "value": "eslint-plugin-typescript",
+                    "label": "ESLint plugins for TypeScript",
                     "hint": "recommended"
-                },
-                {
-                    "value": "@typescript-eslint/eslint-plugin",
-                    "label": "@typescript-eslint/eslint-plugin"
                 }
             ],
-            "vue": [
-                { "value": "eslint-plugin-vue", "label": "eslint-plugin-vue" },
-                {
-                    "value": "eslint-plugin-prettier-vue",
-                    "label": "eslint-plugin-prettier-vue",
-                    "hint": "setups prettier formatting"
-                }
-            ],
-            "react": [
-                { "value": "eslint-plugin-react", "label": "eslint-plugin-react" },
-                { "value": "eslint-plugin-react-hooks", "label": "eslint-plugin-react-hooks" }
-            ],
-            "svelte": [
-                {
-                    "value": "svelte-eslint-parser",
-                    "label": "svelte-eslint-parser",
-                    "hint": "recommended"
-                },
-                { "value": "eslint-plugin-svelte", "label": "eslint-plugin-svelte" }
-            ],
-            "nextjs": [{ "value": "eslint-plugin-next", "label": "eslint-plugin-next" }],
+            "vue": [{ "value": "eslint-plugin-vue", "label": "ESLint plugins for Vue" }],
+            "react": [{ "value": "eslint-plugin-React", "label": "ESLint plugins for React" }],
+            "next": [{ "value": "eslint-plugin-next", "label": "ESLint plugin for Next.js" }],
             "angular": [
                 {
-                    "value": "@angular-eslint/eslint-plugin",
-                    "label": "@angular-eslint/eslint-plugin"
+                    "value": "eslint-plugin-angular",
+                    "label": "ESLint plugins for Angular"
                 }
             ],
             "nestjs": [
                 {
-                    "value": "@darraghor/eslint-plugin-nestjs-typed",
-                    "label": "@darraghor/eslint-plugin-nestjs-typed",
+                    "value": "eslint-plugin-nestjs",
+                    "label": "ESLint plugins for NestJS",
                     "hint": "unofficial"
                 }
             ]
@@ -112,28 +94,30 @@
             "typescript": [
                 {
                     "value": "@ianvs/prettier-plugin-sort-imports",
-                    "label": "@ianvs/prettier-plugin-sort-imports"
+                    "label": "Prettier plugin for sorting imports"
                 },
                 {
                     "value": "prettier-plugin-jsdoc",
-                    "label": "prettier-plugin-jsdoc"
+                    "label": "Prettier plugin for JSDoc"
                 }
             ],
             "javascript": [
                 {
                     "value": "@ianvs/prettier-plugin-sort-imports",
-                    "label": "@ianvs/prettier-plugin-sort-imports",
+                    "label": "Prettier plugin for sorting imports",
                     "hint": "ESM-only"
                 },
                 {
                     "value": "prettier-plugin-jsdoc",
-                    "label": "prettier-plugin-jsdoc"
+                    "label": "Prettier plugin for JSDoc",
+                    "hint": "recommended"
                 }
             ],
             "prisma": [
                 {
                     "value": "prettier-plugin-prisma",
-                    "label": "prettier-plugin-prisma"
+                    "label": "Prettier plugin for Prisma",
+                    "hint": "recommended"
                 }
             ]
         }

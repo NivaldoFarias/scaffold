@@ -1,0 +1,84 @@
+{
+    "next": [
+        { "name": "next", "dev": false, "version": "^13.5.6" },
+        { "name": "react", "dev": false, "version": "^18.2.0" },
+        { "name": "react-dom", "dev": false, "version": "^18.2.0" }
+    ],
+    "nestjs": [
+        { "name": "@nestjs/core", "dev": false, "version": "^10.2.7" },
+        { "name": "@nestjs/common", "dev": false, "version": "^10.2.7" },
+        { "name": "rxjs", "dev": false, "version": "^7.8.1" },
+        { "name": "reflect-metadata", "dev": false, "version": "^0.1.13" }
+    ],
+    "prisma": [
+        { "name": "prisma", "dev": true, "version": "^5.1.1" },
+        { "name": "@prisma/client", "dev": false, "version": "^5.1.1" }
+    ],
+    "drizzle": [
+        { "name": "drizzle-orm", "dev": false, "version": "^0.28.5" },
+        { "name": "drizzle-kit", "dev": true, "version": "^0.19.13" },
+        { "name": "dotenv-cli", "dev": true, "version": "^7.3.0" },
+        { "name": "mysql2", "dev": false, "version": "^3.6.2" }
+    ],
+    "react": [
+        { "name": "react", "dev": false, "version": "^18.2.0" },
+        { "name": "react-dom", "dev": false, "version": "^18.2.0" }
+    ],
+    "vue": [
+        { "name": "@vue/shared", "dev": false, "version": "^3.3.7" },
+        { "name": "@vue/compiler-dom", "dev": false, "version": "^3.3.7" },
+        { "name": "@vue/runtime-dom", "dev": false, "version": "^3.3.7" },
+        { "name": "@vue/compiler-sfc", "dev": false, "version": "^3.3.7" },
+        { "name": "@vue/server-renderer", "dev": false, "version": "^3.3.7" }
+    ],
+    "typeorm": [
+        { "name": "typeorm", "dev": false, "version": "^5.1.1" },
+        { "name": "reflect-metadata", "dev": false, "version": "^5.1.1" },
+        { "name": "mysql2", "dev": false, "version": "^3.6.2" }
+    ],
+    "sequelize": [
+        { "name": "sequelize", "dev": false, "version": "^6.33.0" },
+        { "name": "sqlite3", "dev": false, "version": "^5/1.6" }
+    ],
+    "next-auth": [{ "name": "next-auth", "dev": false, "version": "^4.23.0" }],
+    "koa": [{ "name": "koa", "dev": false, "version": "^2.14.2" }],
+    "express": [{ "name": "express", "dev": false, "version": "^4.18.2" }],
+    "password": [{ "name": "password", "dev": false, "version": "^0.6.0" }],
+    "prettier": [{ "name": "prettier", "dev": true, "version": "^3.0.3" }],
+    "eslint": [{ "name": "eslint", "dev": true, "version": "^8.52.0" }],
+    "mongoose": [{ "name": "mongoose", "dev": false, "version": "^7.6.3" }],
+    "sass": [{ "name": "sass", "dev": true, "version": "^1.69.4" }],
+    "styled-components": [{ "name": "styled-components", "dev": false, "version": "^5.3.11" }],
+    "tailwindcss": [{ "name": "tailwindcss", "dev": true, "version": "^3.3.3" }],
+    "eslint-plugin-typescript": [
+        { "name": "@typescript-eslint/parser", "dev": true, "version": "^5.0.0" },
+        { "name": "@typescript-eslint/eslint-plugin", "dev": true, "version": "^5.0.0" }
+    ],
+    "eslint-plugin-vue": [
+        { "name": "eslint-plugin-vue", "dev": true, "version": "^9.18.1" },
+        { "name": "eslint-plugin-prettier-vue", "dev": true, "version": "^4.2.0" }
+    ],
+    "eslint-plugin-react": [
+        { "name": "eslint-plugin-react", "dev": true, "version": "^7.33.2" },
+        { "name": "eslint-plugin-react-hooks", "dev": true, "version": "^4.6.0" }
+    ],
+    "eslint-plugin-svelt": [
+        { "name": "eslint-plugin-svelte", "dev": true, "version": "^0.33.1" },
+        { "name": "svelte-eslint-parser", "dev": true, "version": "^2.34.0" }
+    ],
+    "eslint-plugin-angular": [
+        { "name": "@angular-eslint/eslint-plugin", "dev": true, "version": "^16.2.0" }
+    ],
+    "eslint-plugin-nestjs": [
+        { "name": "@darraghor/eslint-plugin-nestjs-typed", "dev": true, "version": "^4.3.3" }
+    ],
+    "@ianvs/prettier-plugin-sort-imports": [
+        { "name": "@ianvs/prettier-plugin-sort-imports", "dev": true, "version": "^4.1.1" }
+    ],
+    "prettier-plugin-jsdoc": [
+        { "name": "prettier-plugin-jsdoc", "dev": true, "version": "^1.1.1" }
+    ],
+    "prettier-plugin-prisma": [
+        { "name": "prettier-plugin-prisma", "dev": true, "version": "^5.0.0" }
+    ]
+}

@@ -7,17 +7,17 @@
 ### With `npx`
 
 ```bash
-$ npx scaffold.cli@latest
+$ npx scaffold.cli <project-name>
 ```
 
 ### With `npm`
 
 ```bash
-$ npm create scaffold.cli@latest
+$ npm create scaffold.cli@latest <project-name>
 ```
 
 or
 
 ```bash
-$ npm init scaffold.cli@latest
+$ npm init scaffold.cli@latest <project-name>
 ```
