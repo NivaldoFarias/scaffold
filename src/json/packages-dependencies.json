@@ -72,7 +72,7 @@
     "eslint-plugin-nestjs": [
         { "name": "@darraghor/eslint-plugin-nestjs-typed", "dev": true, "version": "^4.3.3" }
     ],
-    "@ianvs/prettier-plugin-sort-imports": [
+    "prettier-plugin-imports": [
         { "name": "@ianvs/prettier-plugin-sort-imports", "dev": true, "version": "^4.1.1" }
     ],
     "prettier-plugin-jsdoc": [

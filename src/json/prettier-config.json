@@ -1,0 +1,26 @@
+{
+    "browser": {
+        "proseWrap": "always",
+        "jsxSingleQuote": false,
+        "bracketSameLine": false,
+        "singleAttributePerLine": true,
+        "htmlWhitespaceSensitivity": "ignore"
+    },
+    "plugins": {
+        "prettier-plugin-imports": {
+            "importOrder": [
+                "<BUILTIN_MODULES>",
+                "",
+                "<THIRD_PARTY_MODULES>",
+                "",
+                "^~/",
+                "",
+                "^[.][.]/",
+                "",
+                "^[.]/"
+            ]
+        },
+        "prettier-plugin-jsdoc": {},
+        "prettier-plugin-prisma": {}
+    }
+}

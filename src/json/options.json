@@ -93,7 +93,7 @@
         "prettier": {
             "typescript": [
                 {
-                    "value": "@ianvs/prettier-plugin-sort-imports",
+                    "value": "prettier-plugin-imports",
                     "label": "Prettier plugin for sorting imports"
                 },
                 {
@@ -103,7 +103,7 @@
             ],
             "javascript": [
                 {
-                    "value": "@ianvs/prettier-plugin-sort-imports",
+                    "value": "prettier-plugin-imports",
                     "label": "Prettier plugin for sorting imports",
                     "hint": "ESM-only"
                 },

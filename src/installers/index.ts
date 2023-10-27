@@ -11,9 +11,11 @@ export type AvailablePackages = keyof typeof packagesDependencies;
 export interface InstallerOptions {
 	projectDir: string;
 	projectName: string;
-	pkgManager: PackageManager;
+	packageManager: PackageManager;
 	installDependencies: boolean;
 	packages: PackageInstallerMap;
+	environment: "node" | "browser" | "both";
+	language: "typescript" | "javascript" | "both";
 }
 
 export type Installer = (options: InstallerOptions) => void;

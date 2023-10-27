@@ -3,7 +3,7 @@ import { argv } from "node:process";
 import * as prompt from "@clack/prompts";
 import color from "picocolors";
 
-import { getPackageManager } from "~/utils/get-package-manager.js";
+import { getPackageManager, PackageManager } from "~/utils/get-package-manager.js";
 import { IsTTYError } from "~/utils/is-tty-error.js";
 import { logger } from "~/utils/logger.js";
 import { validateAppName } from "~/utils/validate-app-name.js";
@@ -11,6 +11,19 @@ import { validateImportAlias } from "~/utils/validate-import-alias.js";
 
 import DEFAULTS from "~/json/defaults.json";
 import OPTIONS from "~/json/options.json";
+
+import type { AvailablePackages } from "~/installers/index.js";
+
+export type CliResults = {
+	packages: AvailablePackages[];
+	packageManager: PackageManager;
+	projectName: string;
+	language: "typescript" | "javascript" | "both";
+	environment: "node" | "browser" | "both";
+	importAlias: string;
+	gitInit: boolean;
+	installDependencies: boolean;
+};
 
 export async function cli() {
 	try {
@@ -168,12 +181,13 @@ export async function cli() {
 		return {
 			packages,
 			packageManager,
+			environment: project.environment,
 			projectName: project.name,
 			language: project.language,
 			importAlias: project.import,
 			gitInit: project.git === true,
 			installDependencies: project.install === true,
-		};
+		} as CliResults;
 	} catch (error) {
 		// If the user is not calling scaffold.cli from an interactive terminal,
 		// inquirer will throw an IsTTYError.

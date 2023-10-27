@@ -7,8 +7,6 @@ module.exports = {
 	endOfLine: "lf",
 	singleQuote: false,
 	proseWrap: "always",
-	insertPragma: false,
-	requirePragma: false,
 	trailingComma: "all",
 	bracketSpacing: true,
 	arrowParens: "always",

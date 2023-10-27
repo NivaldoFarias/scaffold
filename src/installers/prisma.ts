@@ -23,9 +23,6 @@ export const prismaInstaller: Installer = ({ projectDir, packages }) => {
 	);
 	const schemaDest = path.join(projectDir, "prisma/schema.prisma");
 
-	const clientSrc = path.join(templatePkgsDir, "src/server/db/db-prisma.ts");
-	const clientDest = path.join(projectDir, "src/server/db.ts");
-
 	const packageJsonPath = path.join(projectDir, "package.json");
 	const packageJsonContent = fs.readJSONSync(packageJsonPath) as PackageJson;
 
@@ -37,7 +34,6 @@ export const prismaInstaller: Installer = ({ projectDir, packages }) => {
 	};
 
 	fs.copySync(schemaSrc, schemaDest);
-	fs.copySync(clientSrc, clientDest);
 
 	fs.writeJSONSync(packageJsonPath, packageJsonContent, {
 		spaces: 2,

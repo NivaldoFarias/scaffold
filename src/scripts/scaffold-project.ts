@@ -10,9 +10,7 @@ import type { cli } from "~/cli/index.js";
 import { PKG_ROOT } from "~/consts.js";
 
 /** Bootstraps a new project based on the user's input. */
-export async function scaffoldProject(results: Awaited<ReturnType<typeof cli>>) {
-	if (!results) return;
-
+export async function scaffoldProject(results: NonNullable<Awaited<ReturnType<typeof cli>>>) {
 	const projectDir = path.resolve(process.cwd(), results.projectName);
 	const srcDir = path.join(PKG_ROOT, `templates/base/${results.language}`);
 
@@ -86,6 +84,8 @@ export async function scaffoldProject(results: Awaited<ReturnType<typeof cli>>) 
 		spinner.succeed(
 			`${chalk.cyan.bold(results.projectName)} ${chalk.green("scaffolded successfully!")}\n`,
 		);
+
+		return projectDir;
 	} catch (error) {
 		spinner.fail(`${chalk.redBright.bold("An error has ocurred. Stoping installation...")}\n`);
 

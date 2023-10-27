@@ -10,11 +10,15 @@ module.exports = {
 	parserOptions: {
 		ecmaVersion: "latest",
 		sourceType: "module",
-		project: ["./tsconfig.json"],
+		project: ["./tsconfig.json", "./tsconfig.eslint.json"],
 	},
 	env: {
 		es2023: true,
 		node: true,
+	},
+	overrides: {
+		files: ["./template/**/*.{js,cjs,mjs,ts}"],
+		extends: ["plugin:@typescript-eslint/disable-type-checked"],
 	},
 	rules: {
 		// eslint

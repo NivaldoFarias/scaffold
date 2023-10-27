@@ -8,10 +8,12 @@ import { addPackageDependency } from "~/utils/add-package-dependency.js";
 import { PKG_ROOT } from "~/consts.js";
 import type { AvailablePackages, Installer } from "~/installers/index.js";
 
+export type ESLintPluginPackages = Extract<AvailablePackages, `eslint-plugin-${string}`>;
+
 export const eslintInstaller: Installer = ({ projectDir, packages }) => {
 	const plugins = Object.keys(packages).filter((pkg) => {
-		return pkg.includes("eslint-plugin") && packages[pkg as AvailablePackages].inUse;
-	}) as AvailablePackages[];
+		return pkg.includes("eslint-plugin");
+	}) as ESLintPluginPackages[];
 
 	addPackageDependency({
 		projectDir,
@@ -28,7 +30,7 @@ export const eslintInstaller: Installer = ({ projectDir, packages }) => {
 
 	packageJsonContent.scripts = {
 		...packageJsonContent.scripts,
-		lint: "eslint . --ext .ts,.tsx,.js,.jsx",
+		lint: "eslint .",
 	};
 
 	fs.copySync(schemaSrc, schemaDest);

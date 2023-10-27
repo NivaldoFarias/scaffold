@@ -1,39 +1,94 @@
 import path from "path";
 
 import fs from "fs-extra";
+import type { Config as PrettierConfig } from "prettier";
 import type { PackageJson } from "type-fest";
 
 import { addPackageDependency } from "~/utils/add-package-dependency.js";
 
+import prettierConfig from "~/json/prettier-config.json";
+
 import { PKG_ROOT } from "~/consts.js";
 import type { AvailablePackages, Installer } from "~/installers/index.js";
 
-export const prettierInstaller: Installer = ({ projectDir, packages }) => {
+export type PrettierPluginPackages = Extract<AvailablePackages, `prettier-plugin-${string}`>;
+
+export const prettierInstaller: Installer = ({ projectDir, packages, environment, language }) => {
 	const plugins = Object.keys(packages).filter((pkg) => {
-		return pkg.includes("prettier-plugin") && packages[pkg as AvailablePackages].inUse;
-	}) as AvailablePackages[];
+		return pkg.includes("prettier-plugin");
+	}) as PrettierPluginPackages[];
 
 	addPackageDependency({
 		projectDir,
 		dependencies: ["prettier", ...plugins],
 	});
 
-	const templatePkgsDir = path.join(PKG_ROOT, "templates/packages");
-
-	const schemaSrc = path.join(templatePkgsDir, "prettier");
-	const schemaDest = path.join(projectDir, "prettier/.prettierrc.cjs");
-
+	const prettierConfigPath = path.join(PKG_ROOT, "templates/packages/.prettierrc.json");
 	const packageJsonPath = path.join(projectDir, "package.json");
-	const packageJsonContent = fs.readJSONSync(packageJsonPath) as PackageJson;
 
-	packageJsonContent.scripts = {
-		...packageJsonContent.scripts,
-		format: "prettier --write '**/*.{ts,tsx,js,jsx}'",
-	};
+	const [outputPrettierConfig, packageJsonContent] = [
+		fs.readJSONSync(prettierConfigPath),
+		fs.readJSONSync(packageJsonPath),
+	] as [PrettierConfig, PackageJson];
 
-	fs.copySync(schemaSrc, schemaDest);
+	const prettierConfigDest = path.join(projectDir, ".prettierrc.json");
 
-	fs.writeJSONSync(packageJsonPath, packageJsonContent, {
+	fs.writeJSON(prettierConfigDest, buildPrettierConfig(outputPrettierConfig), {
 		spaces: 2,
 	});
+	fs.writeJSON(packageJsonPath, buildFormattingScript(packageJsonContent), {
+		spaces: 2,
+	});
+
+	function buildPrettierConfig(config: PrettierConfig) {
+		if (environment === "browser" || environment === "both") {
+			config = {
+				...config,
+				...(prettierConfig.browser as PrettierConfig),
+			};
+		}
+
+		if (plugins.length > 0) {
+			config = {
+				...config,
+				plugins,
+			};
+
+			if (plugins.some((plugin) => plugin in prettierConfig.plugins)) {
+				for (const plugin of plugins) {
+					if (!(plugin in prettierConfig.plugins)) continue;
+
+					config = {
+						...config,
+						...prettierConfig.plugins[plugin],
+					};
+				}
+			}
+		}
+
+		return config;
+	}
+
+	function buildFormattingScript(pkgJson: PackageJson) {
+		let formattingScript = "prettier --write '**/*.{js,cjs,mjs";
+
+		if (language === "typescript") {
+			if (environment === "browser" || environment === "both") {
+				formattingScript += `,tsx`;
+			}
+
+			formattingScript += `,ts`;
+		} else if (environment === "browser" || environment === "both") {
+			formattingScript += `,jsx`;
+		}
+
+		formattingScript += `}'`;
+
+		pkgJson.scripts = {
+			...pkgJson.scripts,
+			format: formattingScript,
+		};
+
+		return pkgJson;
+	}
 };
