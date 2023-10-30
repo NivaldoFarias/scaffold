@@ -10,7 +10,7 @@ import type { AvailablePackages, Installer } from "~/installers/index.js";
 
 export type ESLintPluginPackages = Extract<AvailablePackages, `eslint-plugin-${string}`>;
 
-export const eslintInstaller: Installer = ({ projectDir, packages }) => {
+export const eslintInstaller: Installer = ({ projectDir, packages, language }) => {
 	const plugins = Object.keys(packages).filter((pkg) => {
 		return pkg.includes("eslint-plugin");
 	}) as ESLintPluginPackages[];
@@ -28,14 +28,24 @@ export const eslintInstaller: Installer = ({ projectDir, packages }) => {
 	const packageJsonPath = path.join(projectDir, "package.json");
 	const packageJsonContent = fs.readJSONSync(packageJsonPath) as PackageJson;
 
-	packageJsonContent.scripts = {
-		...packageJsonContent.scripts,
-		lint: "eslint .",
-	};
-
 	fs.copySync(schemaSrc, schemaDest);
 
-	fs.writeJSONSync(packageJsonPath, packageJsonContent, {
+	fs.writeJSONSync(packageJsonPath, buildLintingScript(packageJsonContent), {
 		spaces: 2,
 	});
+
+	function buildLintingScript(pkgJson: PackageJson) {
+		const extensions = {
+			typescript: `ts,tsx`,
+			javascript: `,jsx`,
+			both: `,jsx,ts,tsx`,
+		};
+
+		pkgJson.scripts = {
+			...pkgJson.scripts,
+			lint: `eslint . --ext js,cjs,mjs${extensions[language]}`,
+		};
+
+		return pkgJson;
+	}
 };

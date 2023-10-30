@@ -23,7 +23,7 @@ export const prettierInstaller: Installer = ({ projectDir, packages, environment
 		dependencies: ["prettier", ...plugins],
 	});
 
-	const prettierConfigPath = path.join(PKG_ROOT, "templates/packages/.prettierrc.json");
+	const prettierConfigPath = path.join(PKG_ROOT, "templates/.prettierrc.json");
 	const packageJsonPath = path.join(projectDir, "package.json");
 
 	const [outputPrettierConfig, packageJsonContent] = [
@@ -70,23 +70,15 @@ export const prettierInstaller: Installer = ({ projectDir, packages, environment
 	}
 
 	function buildFormattingScript(pkgJson: PackageJson) {
-		let formattingScript = "prettier --write '**/*.{js,cjs,mjs";
-
-		if (language === "typescript") {
-			if (environment === "browser" || environment === "both") {
-				formattingScript += `,tsx`;
-			}
-
-			formattingScript += `,ts`;
-		} else if (environment === "browser" || environment === "both") {
-			formattingScript += `,jsx`;
-		}
-
-		formattingScript += `}'`;
+		const extensions = {
+			typescript: `ts,tsx`,
+			javascript: `,jsx`,
+			both: `,jsx,ts,tsx`,
+		};
 
 		pkgJson.scripts = {
 			...pkgJson.scripts,
-			format: formattingScript,
+			format: `prettier --write '**/*.{json,js,cjs,mjs${extensions[language]}}'`,
 		};
 
 		return pkgJson;

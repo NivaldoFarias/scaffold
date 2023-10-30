@@ -70,54 +70,75 @@
                 {
                     "value": "eslint-plugin-typescript",
                     "label": "ESLint plugins for TypeScript",
-                    "hint": "recommended"
+                    "hint": "@typescript-eslint/parser + @typescript-eslint/eslint-plugin"
                 }
             ],
-            "vue": [{ "value": "eslint-plugin-vue", "label": "ESLint plugins for Vue" }],
-            "react": [{ "value": "eslint-plugin-React", "label": "ESLint plugins for React" }],
-            "next": [{ "value": "eslint-plugin-next", "label": "ESLint plugin for Next.js" }],
+            "vue": [
+                {
+                    "value": "eslint-plugin-vue",
+                    "label": "ESLint plugins for Vue",
+                    "hint": "eslint-plugin-vue + eslint-plugin-prettier-vue"
+                }
+            ],
+            "react": [
+                {
+                    "value": "eslint-plugin-React",
+                    "label": "ESLint plugins for React",
+                    "hint": "eslint-plugin-react + eslint-plugin-react-hooks"
+                }
+            ],
+            "next": [
+                {
+                    "value": "eslint-plugin-next",
+                    "label": "ESLint plugin for Next.js",
+                    "hint": "eslint-plugin-next"
+                }
+            ],
             "angular": [
                 {
                     "value": "eslint-plugin-angular",
-                    "label": "ESLint plugins for Angular"
+                    "label": "ESLint plugins for Angular",
+                    "hint": "@angular-eslint/eslint-plugin"
                 }
             ],
             "nestjs": [
                 {
                     "value": "eslint-plugin-nestjs",
                     "label": "ESLint plugins for NestJS",
-                    "hint": "unofficial"
+                    "hint": "@darraghor/eslint-plugin-nestjs-typed"
                 }
             ]
         },
         "prettier": {
             "typescript": [
                 {
-                    "value": "prettier-plugin-imports",
-                    "label": "Prettier plugin for sorting imports"
-                },
-                {
-                    "value": "prettier-plugin-jsdoc",
-                    "label": "Prettier plugin for JSDoc"
-                }
-            ],
-            "javascript": [
-                {
-                    "value": "prettier-plugin-imports",
-                    "label": "Prettier plugin for sorting imports",
-                    "hint": "ESM-only"
+                    "value": "prettier-plugin-typescript-imports",
+                    "label": "Prettier plugin for sorting imports (with TypeScript support)",
+                    "hint": "@ianvs/prettier-plugin-sort-imports"
                 },
                 {
                     "value": "prettier-plugin-jsdoc",
                     "label": "Prettier plugin for JSDoc",
-                    "hint": "recommended"
+                    "hint": "prettier-plugin-jsdoc"
+                }
+            ],
+            "javascript": [
+                {
+                    "value": "prettier-plugin-javascript-imports",
+                    "label": "Prettier plugin for sorting imports (ESM-only)",
+                    "hint": "@trivago/prettier-plugin-sort-imports"
+                },
+                {
+                    "value": "prettier-plugin-jsdoc",
+                    "label": "Prettier plugin for JSDoc",
+                    "hint": "prettier-plugin-jsdoc"
                 }
             ],
             "prisma": [
                 {
                     "value": "prettier-plugin-prisma",
                     "label": "Prettier plugin for Prisma",
-                    "hint": "recommended"
+                    "hint": "prettier-plugin-prisma"
                 }
             ]
         }

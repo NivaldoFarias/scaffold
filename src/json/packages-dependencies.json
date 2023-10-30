@@ -43,7 +43,7 @@
     "next-auth": [{ "name": "next-auth", "dev": false, "version": "^4.23.0" }],
     "koa": [{ "name": "koa", "dev": false, "version": "^2.14.2" }],
     "express": [{ "name": "express", "dev": false, "version": "^4.18.2" }],
-    "password": [{ "name": "password", "dev": false, "version": "^0.6.0" }],
+    "passport": [{ "name": "passport", "dev": false, "version": "^0.6.0" }],
     "prettier": [{ "name": "prettier", "dev": true, "version": "^3.0.3" }],
     "eslint": [{ "name": "eslint", "dev": true, "version": "^8.52.0" }],
     "mongoose": [{ "name": "mongoose", "dev": false, "version": "^7.6.3" }],
@@ -62,18 +62,18 @@
         { "name": "eslint-plugin-react", "dev": true, "version": "^7.33.2" },
         { "name": "eslint-plugin-react-hooks", "dev": true, "version": "^4.6.0" }
     ],
-    "eslint-plugin-svelt": [
-        { "name": "eslint-plugin-svelte", "dev": true, "version": "^0.33.1" },
-        { "name": "svelte-eslint-parser", "dev": true, "version": "^2.34.0" }
-    ],
     "eslint-plugin-angular": [
         { "name": "@angular-eslint/eslint-plugin", "dev": true, "version": "^16.2.0" }
     ],
     "eslint-plugin-nestjs": [
         { "name": "@darraghor/eslint-plugin-nestjs-typed", "dev": true, "version": "^4.3.3" }
     ],
-    "prettier-plugin-imports": [
+    "eslint-plugin-next": [{ "name": "eslint-plugin-next", "dev": true, "version": "^12.0.0" }],
+    "prettier-plugin-typescript-imports": [
         { "name": "@ianvs/prettier-plugin-sort-imports", "dev": true, "version": "^4.1.1" }
+    ],
+    "prettier-plugin-javascript-imports": [
+        { "name": "@trivago/prettier-plugin-sort-imports", "dev": true, "version": "^4.2.1" }
     ],
     "prettier-plugin-jsdoc": [
         { "name": "prettier-plugin-jsdoc", "dev": true, "version": "^1.1.1" }
