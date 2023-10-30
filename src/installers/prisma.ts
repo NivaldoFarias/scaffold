@@ -8,7 +8,7 @@ import { addPackageDependency } from "~/utils/add-package-dependency.js";
 import { PKG_ROOT } from "~/consts.js";
 import type { Installer } from "~/installers/index.js";
 
-export const prismaInstaller: Installer = ({ projectDir, packages }) => {
+export const prismaInstaller: Installer = ({ projectDir, packageInstallerMap: packages }) => {
 	addPackageDependency({
 		projectDir,
 		dependencies: ["prisma"],

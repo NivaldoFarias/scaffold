@@ -1,0 +1,88 @@
+{
+    "env": {
+        "browser": {
+            "worker": true,
+            "browser": true,
+            "serviceworker": true,
+            "webextensions": true
+        },
+        "node": {
+            "amd": true,
+            "node": true,
+            "CommonJS": true
+        },
+        "both": {
+            "worker": true,
+            "serviceworker": true,
+            "webextensions": true,
+            "shared-node-browser": true
+        }
+    },
+    "parser": {
+        "eslint-plugin-vue": "vue-eslint-parser",
+        "eslint-plugin-typescript": "@typescript-eslint/parser"
+    },
+    "parserOptions": {
+        "eslint-plugin-vue-with-typescript": {
+            "parser": "@typescript-eslint/parser",
+            "ecmaVersion": "latest",
+            "sourceType": "module",
+            "project": ["./tsconfig.json"]
+        },
+        "eslint-plugin-vue-without-typescript": {
+            "ecmaVersion": "latest",
+            "sourceType": "module"
+        },
+        "eslint-plugin-typescript": {
+            "ecmaVersion": "latest",
+            "sourceType": "module",
+            "project": ["./tsconfig.json"]
+        }
+    },
+    "extends": {
+        "eslint-plugin-prettier": ["prettier"],
+        "eslint-plugin-typescript": [
+            "plugin:@typescript-eslint/strict-type-checked",
+            "plugin:@typescript-eslint/stylistic-type-checked"
+        ],
+        "eslint-plugin-vue": ["plugin:vue/vue3-recommended"],
+        "eslint-plugin-next": ["plugin:@next/next/recommended"],
+        "eslint-plugin-react": ["plugin:react/recommended", "plugin:react-hooks/recommended"],
+        "eslint-plugin-nestjs": ["plugin:@darraghor/nestjs-typed/recommended"],
+        "eslint-plugin-tailwindcss": ["plugin:tailwindcss/recommended"],
+        "eslint-plugin-angular": []
+    },
+    "plugins": {
+        "eslint-plugin-nestjs": ["@darraghor/nestjs-typed"]
+    },
+    "overrides": {
+        "eslint-plugin-angular": [
+            {
+                "files": ["*.ts"],
+                "extends": [
+                    "eslint:recommended",
+                    "plugin:@typescript-eslint/recommended",
+                    "plugin:@angular-eslint/recommended",
+                    "plugin:@angular-eslint/template/process-inline-templates"
+                ],
+                "rules": {
+                    "@angular-eslint/directive-selector": [
+                        "error",
+                        { "type": "attribute", "prefix": "app", "style": "camelCase" }
+                    ],
+                    "@angular-eslint/component-selector": [
+                        "error",
+                        { "type": "element", "prefix": "app", "style": "kebab-case" }
+                    ]
+                }
+            },
+            {
+                "files": ["*.html"],
+                "extends": [
+                    "plugin:@angular-eslint/template/recommended",
+                    "plugin:@angular-eslint/template/accessibility"
+                ]
+            }
+        ]
+    }
+}

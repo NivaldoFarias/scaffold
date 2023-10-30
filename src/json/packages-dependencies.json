@@ -55,8 +55,8 @@
         { "name": "@typescript-eslint/eslint-plugin", "dev": true, "version": "^5.0.0" }
     ],
     "eslint-plugin-vue": [
-        { "name": "eslint-plugin-vue", "dev": true, "version": "^9.18.1" },
-        { "name": "eslint-plugin-prettier-vue", "dev": true, "version": "^4.2.0" }
+        { "name": "vue-eslint-parser", "dev": true, "version": "^9.3.2" },
+        { "name": "eslint-plugin-vue", "dev": true, "version": "^9.18.1" }
     ],
     "eslint-plugin-react": [
         { "name": "eslint-plugin-react", "dev": true, "version": "^7.33.2" },
@@ -69,16 +69,29 @@
         { "name": "@darraghor/eslint-plugin-nestjs-typed", "dev": true, "version": "^4.3.3" }
     ],
     "eslint-plugin-next": [{ "name": "eslint-plugin-next", "dev": true, "version": "^12.0.0" }],
-    "prettier-plugin-typescript-imports": [
-        { "name": "@ianvs/prettier-plugin-sort-imports", "dev": true, "version": "^4.1.1" }
+    "eslint-plugin-prettier": [
+        { "name": "eslint-plugin-prettier", "dev": true, "version": "^5.0.0" },
+        { "name": "eslint-config-prettier", "dev": true, "version": "^9.0.0" }
     ],
-    "prettier-plugin-javascript-imports": [
-        { "name": "@trivago/prettier-plugin-sort-imports", "dev": true, "version": "^4.2.1" }
+    "prettier-plugin-imports": [
+        { "name": "@ianvs/prettier-plugin-sort-imports", "dev": true, "version": "^4.1.1" }
     ],
     "prettier-plugin-jsdoc": [
         { "name": "prettier-plugin-jsdoc", "dev": true, "version": "^1.1.1" }
     ],
     "prettier-plugin-prisma": [
         { "name": "prettier-plugin-prisma", "dev": true, "version": "^5.0.0" }
+    ],
+    "stylelint": [
+        { "name": "stylelint", "dev": true, "version": "^15.11.0" },
+        { "name": "stylelint-config-standard", "dev": true, "version": "^34.0.0" }
+    ],
+    "stylelint-plugin-sass": [
+        { "name": "stylelint-scss", "dev": true, "version": "^5.2.1" },
+        { "name": "stylelint-config-standard-scss", "dev": true, "version": "^11.0.0" }
+    ],
+    "stylelint-plugin-styled-components": [
+        { "name": "stylelint-config-standard", "dev": true, "version": "^34.0.0" },
+        { "name": "postcss-styled-syntax", "dev": true, "version": "^0.5.0" }
     ]
 }

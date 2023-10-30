@@ -4,6 +4,11 @@
         { "value": "node", "label": "Node.js only" },
         { "value": "both", "label": "Both" }
     ],
+    "languages": [
+        { "value": "typescript", "label": "TypeScript" },
+        { "value": "javascript", "label": "JavaScript" },
+        { "value": "both", "label": "A mix of both" }
+    ],
     "frameworks": {
         "browser": [
             { "value": "react", "label": "React" },
@@ -16,7 +21,7 @@
             { "value": "nestjs", "label": "NestJS" },
             { "value": "express", "label": "Express.js" },
             { "value": "koa", "label": "Koa" },
-            { "value": "none", "label": "None", "hint": "Vanilla JS" }
+            { "value": "none", "label": "None" }
         ],
         "both": [
             { "value": "next", "label": "Next.js" },
@@ -28,10 +33,6 @@
         { "value": "tailwindcss", "label": "Tailwind CSS" },
         { "value": "styled-components", "label": "Styled Components" },
         { "value": "none", "label": "None" }
-    ],
-    "languages": [
-        { "value": "typescript", "label": "TypeScript" },
-        { "value": "javascript", "label": "JavaScript" }
     ],
     "authentication": {
         "typescript": [
@@ -45,24 +46,30 @@
         ]
     },
     "database": {
-        "typescript": [
+        "next-auth": [
+            { "value": "typeorm", "label": "TypeORM", "hint": "+ NextAuth.js TypeORM Adapter" },
+            { "value": "prisma", "label": "Prisma", "hint": "+ NextAuth.js Prisma Adapter" },
+            {
+                "value": "sequelize",
+                "label": "Sequelize",
+                "hint": "+ NextAuth.js Sequelize Adapter"
+            },
+            { "value": "drizzle", "label": "Drizzle", "hint": "+ NextAuth.js Drizzle Adapter" },
+            { "value": "none", "label": "None" }
+        ],
+        "default": [
             { "value": "typeorm", "label": "TypeORM" },
             { "value": "prisma", "label": "Prisma" },
             { "value": "sequelize", "label": "Sequelize" },
             { "value": "drizzle", "label": "Drizzle" },
             { "value": "mongoose", "label": "Mongoose" },
             { "value": "none", "label": "None" }
-        ],
-        "javascript": [
-            { "value": "prisma", "label": "Prisma" },
-            { "value": "mongoose", "label": "Mongoose" },
-            { "value": "sequelize", "label": "Sequelize" },
-            { "value": "none", "label": "None" }
         ]
     },
     "tooling": [
         { "value": "eslint", "label": "ESLint" },
-        { "value": "prettier", "label": "Prettier" }
+        { "value": "prettier", "label": "Prettier" },
+        { "value": "stylelint", "label": "Stylelint" }
     ],
     "plugins": {
         "eslint": {
@@ -77,12 +84,12 @@
                 {
                     "value": "eslint-plugin-vue",
                     "label": "ESLint plugins for Vue",
-                    "hint": "eslint-plugin-vue + eslint-plugin-prettier-vue"
+                    "hint": "eslint-plugin-vue + vue-eslint-parser"
                 }
             ],
             "react": [
                 {
-                    "value": "eslint-plugin-React",
+                    "value": "eslint-plugin-react",
                     "label": "ESLint plugins for React",
                     "hint": "eslint-plugin-react + eslint-plugin-react-hooks"
                 }
@@ -107,13 +114,20 @@
                     "label": "ESLint plugins for NestJS",
                     "hint": "@darraghor/eslint-plugin-nestjs-typed"
                 }
+            ],
+            "tailwindcss": [
+                {
+                    "value": "eslint-plugin-tailwindcss",
+                    "label": "ESLint plugin for Tailwind CSS",
+                    "hint": "eslint-plugin-tailwindcss"
+                }
             ]
         },
         "prettier": {
             "typescript": [
                 {
-                    "value": "prettier-plugin-typescript-imports",
-                    "label": "Prettier plugin for sorting imports (with TypeScript support)",
+                    "value": "prettier-plugin-imports",
+                    "label": "Prettier plugin for sorting imports",
                     "hint": "@ianvs/prettier-plugin-sort-imports"
                 },
                 {
@@ -123,11 +137,6 @@
                 }
             ],
             "javascript": [
-                {
-                    "value": "prettier-plugin-javascript-imports",
-                    "label": "Prettier plugin for sorting imports (ESM-only)",
-                    "hint": "@trivago/prettier-plugin-sort-imports"
-                },
                 {
                     "value": "prettier-plugin-jsdoc",
                     "label": "Prettier plugin for JSDoc",
@@ -139,6 +148,29 @@
                     "value": "prettier-plugin-prisma",
                     "label": "Prettier plugin for Prisma",
                     "hint": "prettier-plugin-prisma"
+                }
+            ],
+            "tailwindcss": [
+                {
+                    "value": "prettier-plugin-tailwindcss",
+                    "label": "Prettier plugin for Tailwind CSS",
+                    "hint": "prettier-plugin-tailwindcss"
+                }
+            ]
+        },
+        "stylelint": {
+            "sass": [
+                {
+                    "value": "stylelint-plugin-sass",
+                    "label": "Stylelint plugins for SCSS",
+                    "hint": "stylelint-scss + stylelint-config-standard-scss"
+                }
+            ],
+            "styled-components": [
+                {
+                    "value": "stylelint-plugin-styled-components",
+                    "label": "Stylelint plugins for Styled Components",
+                    "hint": "postcss-styled-syntax"
                 }
             ]
         }

@@ -6,37 +6,42 @@ import type { PackageJson } from "type-fest";
 
 import { addPackageDependency } from "~/utils/add-package-dependency.js";
 
-import prettierConfig from "~/json/prettier-config.json";
+import prettierConfigOptions from "~/json/prettier-config-options.json";
 
 import { PKG_ROOT } from "~/consts.js";
 import type { AvailablePackages, Installer } from "~/installers/index.js";
 
 export type PrettierPluginPackages = Extract<AvailablePackages, `prettier-plugin-${string}`>;
 
-export const prettierInstaller: Installer = ({ projectDir, packages, environment, language }) => {
-	const plugins = Object.keys(packages).filter((pkg) => {
-		return pkg.includes("prettier-plugin");
-	}) as PrettierPluginPackages[];
+export const prettierInstaller: Installer = ({
+	language,
+	projectDir,
+	environment,
+	packageInstallerMap,
+}) => {
+	const plugins = Object.entries(packageInstallerMap)
+		.filter(([pkgName, pkgValue]) => pkgName.includes("prettier-plugin") && pkgValue.inUse)
+		.map(([pkgName]) => pkgName) as PrettierPluginPackages[];
 
 	addPackageDependency({
 		projectDir,
 		dependencies: ["prettier", ...plugins],
 	});
 
-	const prettierConfigPath = path.join(PKG_ROOT, "templates/.prettierrc.json");
+	const prettierConfigPath = path.join(PKG_ROOT, "templates/packages/.prettierrc.json");
 	const packageJsonPath = path.join(projectDir, "package.json");
 
-	const [outputPrettierConfig, packageJsonContent] = [
+	const [prettierConfig, packageJson] = [
 		fs.readJSONSync(prettierConfigPath),
 		fs.readJSONSync(packageJsonPath),
 	] as [PrettierConfig, PackageJson];
 
 	const prettierConfigDest = path.join(projectDir, ".prettierrc.json");
 
-	fs.writeJSON(prettierConfigDest, buildPrettierConfig(outputPrettierConfig), {
+	fs.writeJSON(prettierConfigDest, buildPrettierConfig(prettierConfig), {
 		spaces: 2,
 	});
-	fs.writeJSON(packageJsonPath, buildFormattingScript(packageJsonContent), {
+	fs.writeJSON(packageJsonPath, buildFormattingScript(packageJson), {
 		spaces: 2,
 	});
 
@@ -44,7 +49,7 @@ export const prettierInstaller: Installer = ({ projectDir, packages, environment
 		if (environment === "browser" || environment === "both") {
 			config = {
 				...config,
-				...(prettierConfig.browser as PrettierConfig),
+				...(prettierConfigOptions.browser as PrettierConfig),
 			};
 		}
 
@@ -54,13 +59,13 @@ export const prettierInstaller: Installer = ({ projectDir, packages, environment
 				plugins,
 			};
 
-			if (plugins.some((plugin) => plugin in prettierConfig.plugins)) {
+			if (plugins.some((plugin) => plugin in prettierConfigOptions.plugins)) {
 				for (const plugin of plugins) {
-					if (!(plugin in prettierConfig.plugins)) continue;
+					if (!(plugin in prettierConfigOptions.plugins)) continue;
 
 					config = {
 						...config,
-						...prettierConfig.plugins[plugin],
+						...prettierConfigOptions.plugins[plugin],
 					};
 				}
 			}
@@ -71,7 +76,7 @@ export const prettierInstaller: Installer = ({ projectDir, packages, environment
 
 	function buildFormattingScript(pkgJson: PackageJson) {
 		const extensions = {
-			typescript: `ts,tsx`,
+			typescript: `,ts,tsx`,
 			javascript: `,jsx`,
 			both: `,jsx,ts,tsx`,
 		};

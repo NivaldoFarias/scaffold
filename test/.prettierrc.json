@@ -1,0 +1,40 @@
+{
+    "$schema": "https://json.schemastore.org/prettierrc",
+    "semi": true,
+    "tabWidth": 2,
+    "useTabs": true,
+    "printWidth": 100,
+    "endOfLine": "lf",
+    "singleQuote": false,
+    "trailingComma": "all",
+    "bracketSpacing": true,
+    "arrowParens": "always",
+    "quoteProps": "consistent",
+    "overrides": [
+        {
+            "files": ["*.d.ts", "*.json"],
+            "excludeFiles": ["package.json"],
+            "options": {
+                "tabWidth": 4,
+                "useTabs": false
+            }
+        }
+    ],
+    "proseWrap": "always",
+    "jsxSingleQuote": false,
+    "bracketSameLine": false,
+    "singleAttributePerLine": true,
+    "htmlWhitespaceSensitivity": "ignore",
+    "plugins": ["prettier-plugin-jsdoc", "prettier-plugin-imports"],
+    "importOrder": [
+        "<BUILTIN_MODULES>",
+        "",
+        "<THIRD_PARTY_MODULES>",
+        "",
+        "^~/",
+        "",
+        "^[.][.]/",
+        "",
+        "^[.]/"
+    ]
+}

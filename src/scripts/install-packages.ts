@@ -8,24 +8,24 @@ import { type InstallerOptions, type PackageInstallerMap } from "~/installers/in
 
 export type InstallPackagesOptions = Simplify<
 	InstallerOptions & {
-		packages: PackageInstallerMap;
+		packageInstallerMap: PackageInstallerMap;
 	}
 >;
 
 /** This runs the installer for all the packages that the user has selected. */
 export function installPackages(options: InstallPackagesOptions) {
-	const { packages } = options;
+	const { packageInstallerMap } = options;
 
 	logger.info("Adding boilerplate...");
 
-	for (const [name, packageOptions] of Object.entries(packages)) {
-		if (packageOptions.inUse) {
-			const spinner = ora(`Boilerplating ${name}...`).start();
+	for (const [name, pkg] of Object.entries(packageInstallerMap)) {
+		if (!pkg.inUse) continue;
 
-			packageOptions.installer(options);
+		const spinner = ora(`Boilerplating ${name}...`).start();
 
-			spinner.succeed(chalk.green(`Successfully setup boilerplate for ${chalk.green.bold(name)}`));
-		}
+		pkg.installer(options);
+
+		spinner.succeed(chalk.green(`Successfully setup boilerplate for ${chalk.green.bold(name)}`));
 	}
 
 	logger.info("");

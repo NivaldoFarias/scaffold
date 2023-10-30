@@ -13,7 +13,7 @@ export interface InstallerOptions {
 	projectName: string;
 	packageManager: PackageManager;
 	installDependencies: boolean;
-	packages: PackageInstallerMap;
+	packageInstallerMap: PackageInstallerMap;
 	environment: "node" | "browser" | "both";
 	language: "typescript" | "javascript" | "both";
 }
@@ -29,10 +29,6 @@ export type PackageInstallerMap = {
 
 export function buildPackageInstallerMap(packages: AvailablePackages[]): PackageInstallerMap {
 	return {
-		"prisma": {
-			inUse: packages.includes("prisma"),
-			installer: prismaInstaller,
-		},
 		"eslint": {
 			inUse: packages.includes("eslint"),
 			installer: eslintInstaller,
@@ -41,8 +37,16 @@ export function buildPackageInstallerMap(packages: AvailablePackages[]): Package
 			inUse: packages.includes("prettier"),
 			installer: prettierInstaller,
 		},
+		"prisma": {
+			inUse: packages.includes("prisma"),
+			installer: prismaInstaller,
+		},
 		"next-auth": {
 			inUse: packages.includes("next-auth"),
+			installer: () => {},
+		},
+		"eslint-plugin-prettier": {
+			inUse: packages.includes("eslint-plugin-prettier"),
 			installer: () => {},
 		},
 		"eslint-plugin-angular": {
@@ -69,10 +73,6 @@ export function buildPackageInstallerMap(packages: AvailablePackages[]): Package
 			inUse: packages.includes("eslint-plugin-vue"),
 			installer: () => {},
 		},
-		"prettier-plugin-javascript-imports": {
-			inUse: packages.includes("prettier-plugin-javascript-imports"),
-			installer: () => {},
-		},
 		"prettier-plugin-jsdoc": {
 			inUse: packages.includes("prettier-plugin-jsdoc"),
 			installer: () => {},
@@ -81,8 +81,8 @@ export function buildPackageInstallerMap(packages: AvailablePackages[]): Package
 			inUse: packages.includes("prettier-plugin-prisma"),
 			installer: () => {},
 		},
-		"prettier-plugin-typescript-imports": {
-			inUse: packages.includes("prettier-plugin-typescript-imports"),
+		"prettier-plugin-imports": {
+			inUse: packages.includes("prettier-plugin-imports"),
 			installer: () => {},
 		},
 		"styled-components": {
@@ -139,6 +139,18 @@ export function buildPackageInstallerMap(packages: AvailablePackages[]): Package
 		},
 		"vue": {
 			inUse: packages.includes("vue"),
+			installer: () => {},
+		},
+		"stylelint-plugin-sass": {
+			inUse: packages.includes("stylelint-plugin-sass"),
+			installer: () => {},
+		},
+		"stylelint-plugin-styled-components": {
+			inUse: packages.includes("stylelint-plugin-styled-components"),
+			installer: () => {},
+		},
+		"stylelint": {
+			inUse: packages.includes("stylelint"),
 			installer: () => {},
 		},
 	};

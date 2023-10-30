@@ -12,13 +12,11 @@ async function exec() {
 	const results = await cli();
 	if (!results) return;
 
-	const packages = buildPackageInstallerMap(results.packages);
-
 	const projectDir = await scaffoldProject(results);
 
 	installPackages({
 		...results,
-		packages,
 		projectDir,
+		packageInstallerMap: buildPackageInstallerMap(results.packages),
 	});
 }

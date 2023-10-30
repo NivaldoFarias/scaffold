@@ -45,6 +45,7 @@ export async function cli() {
 					return prompt.text({
 						message: "How should the project be called?",
 						defaultValue: argv[0] ?? DEFAULTS.project_name,
+						placeholder: DEFAULTS.project_name,
 						validate: validateAppName,
 					});
 				},
@@ -54,28 +55,55 @@ export async function cli() {
 						options: OPTIONS.environments,
 					});
 				},
-				framework: ({ results: { environment } }) => {
-					return prompt.select({
-						message: "Which framework do you wish to use?",
-						options: OPTIONS.frameworks[environment as keyof typeof OPTIONS.frameworks],
-					});
-				},
 				language: ({ results }) => {
 					return prompt.select({
 						message: "What language do you wish to use?",
 						options: OPTIONS.languages,
 					});
 				},
-				authentication: ({ results: { language } }) => {
+				framework: ({ results: { environment, language } }) => {
+					let options = OPTIONS.frameworks[environment as keyof typeof OPTIONS.frameworks];
+
+					if ((environment === "browser" || environment === "both") && language === "javascript") {
+						options = options.filter(({ value }) => value !== "angular");
+					}
+
 					return prompt.select({
-						message: "Which authentication method do you wish to use?",
-						options: OPTIONS.authentication[language as keyof typeof OPTIONS.authentication],
+						message: "Which framework do you wish to use?",
+						options,
 					});
 				},
-				database: ({ results: { language } }) => {
+				styling: ({ results: { environment } }) => {
+					if (environment === "node") return;
+
+					return prompt.select({
+						message: "Which styling framework do you wish to use?",
+						options: OPTIONS.styling,
+					});
+				},
+				authentication: ({ results: { language, framework } }) => {
+					let options = OPTIONS.authentication[language as keyof typeof OPTIONS.authentication];
+
+					if (framework !== "next") {
+						options = options.filter(({ value }) => value !== "next-auth");
+					}
+
+					return prompt.select({
+						message: "Which authentication method do you wish to use?",
+						options,
+					});
+				},
+				database: ({ results: { environment, authentication } }) => {
+					if (environment === "browser") return;
+
+					const options =
+						authentication === "next-auth"
+							? OPTIONS.database["next-auth"]
+							: OPTIONS.database.default;
+
 					return prompt.select({
 						message: "Which database ORM do you wish to use?",
-						options: OPTIONS.database[language as keyof typeof OPTIONS.database],
+						options,
 					});
 				},
 				tooling: ({ results }) => {
@@ -85,7 +113,7 @@ export async function cli() {
 						required: false,
 					});
 				},
-				plugins: ({ results: { language, tooling, framework, database } }) => {
+				plugins: ({ results: { language, tooling, framework, database, styling } }) => {
 					if (!tooling || !Array.isArray(tooling) || tooling.length === 0) {
 						return prompt.note(
 							"No tooling selected. Skipping plugin selection. You can always add plugins later.",
@@ -95,10 +123,18 @@ export async function cli() {
 					const options = [];
 
 					if (tooling.includes("eslint")) {
+						if (language === "typescript" || language === "both") {
+							options.push(...OPTIONS.plugins.eslint.typescript);
+						}
+
 						if (typeof framework === "string" && framework in OPTIONS.plugins.eslint) {
 							options.push(
 								...OPTIONS.plugins.eslint[framework as keyof typeof OPTIONS.plugins.eslint],
 							);
+						}
+
+						if (styling === "tailwindcss") {
+							options.push(...OPTIONS.plugins.eslint.tailwindcss);
 						}
 					}
 
@@ -109,6 +145,18 @@ export async function cli() {
 
 						if (database === "prisma") {
 							options.push(...OPTIONS.plugins.prettier.prisma);
+						}
+
+						if (styling === "tailwindcss") {
+							options.push(...OPTIONS.plugins.prettier.tailwindcss);
+						}
+					}
+
+					if (tooling.includes("styleling")) {
+						if (styling === "sass") {
+							options.push(...OPTIONS.plugins.stylelint.sass);
+						} else if (styling === "styled-components") {
+							options.push(...OPTIONS.plugins.stylelint["styled-components"]);
 						}
 					}
 
@@ -133,7 +181,7 @@ export async function cli() {
 						initialValue: true,
 					});
 				},
-				import: () => {
+				importAlias: ({ results }) => {
 					return prompt.text({
 						message: "What import alias would you like to use?",
 						initialValue: DEFAULTS.import_alias,
@@ -154,6 +202,7 @@ export async function cli() {
 
 		for (const [key, value] of Object.entries(project)) {
 			switch (key as keyof typeof project) {
+				case "styling":
 				case "language":
 				case "database":
 				case "framework":
@@ -178,21 +227,26 @@ export async function cli() {
 			}
 		}
 
+		if (packages.includes("prettier") && packages.includes("eslint")) {
+			packages.push("eslint-plugin-prettier");
+		}
+
 		return {
 			packages,
 			packageManager,
 			environment: project.environment,
 			projectName: project.name,
 			language: project.language,
-			importAlias: project.import,
+			importAlias: project.importAlias,
 			gitInit: project.git === true,
 			installDependencies: project.install === true,
 		} as CliResults;
 	} catch (error) {
-		// If the user is not calling scaffold.cli from an interactive terminal,
-		// inquirer will throw an IsTTYError.
-		// If this happens, we catch the error, tell the user what has happened,
-		// and then continue to run the program with a default app
+		// ! If the user is not calling the cli from an interactive terminal,
+		// ! inquirer will throw an IsTTYError.
+		// ! If this happens, we catch the error, tell the user what has happened,
+		// ! and then continue to run the program with a default app
+
 		if (error instanceof IsTTYError) {
 			logger.warn(`scaffold.cli needs an interactive terminal to provide options`);
 
