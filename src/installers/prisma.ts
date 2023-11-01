@@ -8,19 +8,16 @@ import { addPackageDependency } from "~/utils/add-package-dependency.js";
 import { PKG_ROOT } from "~/consts.js";
 import type { Installer } from "~/installers/index.js";
 
-export const prismaInstaller: Installer = ({ projectDir, packageInstallerMap: packages }) => {
+export const prismaInstaller: Installer = ({ projectDir, language }) => {
 	addPackageDependency({
 		projectDir,
 		dependencies: ["prisma"],
+		usesTypescript: language === "typescript" || language === "both",
 	});
 
 	const templatePkgsDir = path.join(PKG_ROOT, "templates/packages");
 
-	const schemaSrc = path.join(
-		templatePkgsDir,
-		"prisma/schema",
-		packages["next-auth"].inUse ? "with-auth.prisma" : "base.prisma",
-	);
+	const schemaSrc = path.join(templatePkgsDir, "prisma/schema.prisma");
 	const schemaDest = path.join(projectDir, "prisma/schema.prisma");
 
 	const packageJsonPath = path.join(projectDir, "package.json");
@@ -29,8 +26,8 @@ export const prismaInstaller: Installer = ({ projectDir, packageInstallerMap: pa
 	packageJsonContent.scripts = {
 		...packageJsonContent.scripts,
 		"postinstall": "prisma generate",
-		"prisma:push": "prisma db push",
-		"prisma:studio": "prisma studio",
+		"db:push": "prisma db push",
+		"db:studio": "prisma studio",
 	};
 
 	fs.copySync(schemaSrc, schemaDest);

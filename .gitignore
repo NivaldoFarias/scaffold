@@ -5,9 +5,12 @@
 *.userosscache
 *.sln.docstates
 .husky/_
-.env
 *.userprefs
-.test
+
+# local env files
+.env
+.env*.local
+!.env.example
 
 # Build results
 dist/
@@ -21,7 +24,6 @@ bld/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
-sonar-project.properties
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -145,9 +147,6 @@ AutoTest.Net/
 
 # Web workbench (sass)
 .sass-cache/
-
-# Installshield output folder
-[Ee]xpress/
 
 # DocProject is a documentation generator add-in
 DocProject/buildhelp/

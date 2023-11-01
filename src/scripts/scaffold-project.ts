@@ -80,6 +80,7 @@ export async function scaffoldProject(results: NonNullable<Awaited<ReturnType<ty
 		spinner.start();
 
 		fs.copySync(srcDir, projectDir);
+		fs.renameSync(path.join(projectDir, "_gitignore"), path.join(projectDir, ".gitignore"));
 
 		spinner.succeed(
 			`${chalk.cyan.bold(results.projectName)} ${chalk.green("scaffolded successfully!")}\n`,

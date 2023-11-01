@@ -1,178 +1,39 @@
 {
-    "environments": [
-        { "value": "browser", "label": "Browser only" },
-        { "value": "node", "label": "Node.js only" },
-        { "value": "both", "label": "Both" }
-    ],
-    "languages": [
-        { "value": "typescript", "label": "TypeScript" },
-        { "value": "javascript", "label": "JavaScript" },
-        { "value": "both", "label": "A mix of both" }
-    ],
-    "frameworks": {
-        "browser": [
-            { "value": "react", "label": "React" },
-            { "value": "vue", "label": "Vue" },
-            { "value": "angular", "label": "Angular" },
-            { "value": "htmx", "label": "HTMX", "hint": "I like you, you're cool." },
-            { "value": "none", "label": "None", "hint": "Vanilla JS" }
-        ],
-        "node": [
-            { "value": "nestjs", "label": "NestJS" },
-            { "value": "express", "label": "Express.js" },
-            { "value": "koa", "label": "Koa" },
-            { "value": "none", "label": "None" }
-        ],
-        "both": [
-            { "value": "next", "label": "Next.js" },
-            { "value": "none", "label": "None" }
+    "environments": {
+        "prompt": "What environment will the project run in",
+        "options": [
+            { "value": "browser", "label": "Browser", "hint": "Front end only" },
+            { "value": "node", "label": "Node.js", "hint": "Back end only" },
+            { "value": "both", "label": "Both", "hint": "Full stack" }
         ]
     },
-    "styling": [
-        { "value": "sass", "label": "SASS/SCSS" },
-        { "value": "tailwindcss", "label": "Tailwind CSS" },
-        { "value": "styled-components", "label": "Styled Components" },
-        { "value": "none", "label": "None" }
-    ],
-    "authentication": {
-        "typescript": [
-            { "value": "next-auth", "label": "NextAuth.js" },
-            { "value": "passport", "label": "Passport.js" },
-            { "value": "none", "label": "None" }
-        ],
-        "javascript": [
-            { "value": "passport", "label": "Passport.js" },
-            { "value": "none", "label": "None" }
-        ]
-    },
-    "database": {
-        "next-auth": [
-            { "value": "typeorm", "label": "TypeORM", "hint": "+ NextAuth.js TypeORM Adapter" },
-            { "value": "prisma", "label": "Prisma", "hint": "+ NextAuth.js Prisma Adapter" },
-            {
-                "value": "sequelize",
-                "label": "Sequelize",
-                "hint": "+ NextAuth.js Sequelize Adapter"
-            },
-            { "value": "drizzle", "label": "Drizzle", "hint": "+ NextAuth.js Drizzle Adapter" },
-            { "value": "none", "label": "None" }
-        ],
-        "default": [
-            { "value": "typeorm", "label": "TypeORM" },
-            { "value": "prisma", "label": "Prisma" },
-            { "value": "sequelize", "label": "Sequelize" },
-            { "value": "drizzle", "label": "Drizzle" },
-            { "value": "mongoose", "label": "Mongoose" },
-            { "value": "none", "label": "None" }
-        ]
-    },
-    "tooling": [
-        { "value": "eslint", "label": "ESLint" },
-        { "value": "prettier", "label": "Prettier" },
-        { "value": "stylelint", "label": "Stylelint" }
-    ],
-    "plugins": {
-        "eslint": {
-            "typescript": [
-                {
-                    "value": "eslint-plugin-typescript",
-                    "label": "ESLint plugins for TypeScript",
-                    "hint": "@typescript-eslint/parser + @typescript-eslint/eslint-plugin"
-                }
+    "presets": {
+        "prompt": "Which project preset do you want to start with?",
+        "options": {
+            "browser": [
+                { "value": "react", "label": "React-powered SPA", "hint": "TailwindCSS" },
+                { "value": "vue", "label": "Vue-powered SPA", "hint": "Vuetify" },
+                { "value": "htmx", "label": "HTMX", "hint": "I like you, you're cool." },
+                { "value": "none", "label": "None", "hint": "Vanilla JS" }
             ],
-            "vue": [
+            "node": [
                 {
-                    "value": "eslint-plugin-vue",
-                    "label": "ESLint plugins for Vue",
-                    "hint": "eslint-plugin-vue + vue-eslint-parser"
-                }
-            ],
-            "react": [
-                {
-                    "value": "eslint-plugin-react",
-                    "label": "ESLint plugins for React",
-                    "hint": "eslint-plugin-react + eslint-plugin-react-hooks"
-                }
-            ],
-            "next": [
-                {
-                    "value": "eslint-plugin-next",
-                    "label": "ESLint plugin for Next.js",
-                    "hint": "eslint-plugin-next"
-                }
-            ],
-            "angular": [
-                {
-                    "value": "eslint-plugin-angular",
-                    "label": "ESLint plugins for Angular",
-                    "hint": "@angular-eslint/eslint-plugin"
-                }
-            ],
-            "nestjs": [
-                {
-                    "value": "eslint-plugin-nestjs",
-                    "label": "ESLint plugins for NestJS",
-                    "hint": "@darraghor/eslint-plugin-nestjs-typed"
-                }
-            ],
-            "tailwindcss": [
-                {
-                    "value": "eslint-plugin-tailwindcss",
-                    "label": "ESLint plugin for Tailwind CSS",
-                    "hint": "eslint-plugin-tailwindcss"
-                }
-            ]
-        },
-        "prettier": {
-            "typescript": [
-                {
-                    "value": "prettier-plugin-imports",
-                    "label": "Prettier plugin for sorting imports",
-                    "hint": "@ianvs/prettier-plugin-sort-imports"
+                    "value": "nestjs",
+                    "label": "NestJS REST API Server",
+                    "hint": "for more complex APIs"
                 },
                 {
-                    "value": "prettier-plugin-jsdoc",
-                    "label": "Prettier plugin for JSDoc",
-                    "hint": "prettier-plugin-jsdoc"
+                    "value": "express",
+                    "label": "Express REST API Server",
+                    "hint": "for regular APIs"
+                },
+                {
+                    "value": "data-science",
+                    "label": "Data Science",
+                    "hint": "for local data science projects"
                 }
             ],
-            "javascript": [
-                {
-                    "value": "prettier-plugin-jsdoc",
-                    "label": "Prettier plugin for JSDoc",
-                    "hint": "prettier-plugin-jsdoc"
-                }
-            ],
-            "prisma": [
-                {
-                    "value": "prettier-plugin-prisma",
-                    "label": "Prettier plugin for Prisma",
-                    "hint": "prettier-plugin-prisma"
-                }
-            ],
-            "tailwindcss": [
-                {
-                    "value": "prettier-plugin-tailwindcss",
-                    "label": "Prettier plugin for Tailwind CSS",
-                    "hint": "prettier-plugin-tailwindcss"
-                }
-            ]
-        },
-        "stylelint": {
-            "sass": [
-                {
-                    "value": "stylelint-plugin-sass",
-                    "label": "Stylelint plugins for SCSS",
-                    "hint": "stylelint-scss + stylelint-config-standard-scss"
-                }
-            ],
-            "styled-components": [
-                {
-                    "value": "stylelint-plugin-styled-components",
-                    "label": "Stylelint plugins for Styled Components",
-                    "hint": "postcss-styled-syntax"
-                }
-            ]
+            "both": [{ "value": "next", "label": "Next.js", "hint": "Prisma + TailwindCSS + tRPC" }]
         }
     }
 }

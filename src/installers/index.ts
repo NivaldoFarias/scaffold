@@ -3,6 +3,7 @@ import type { PackageManager } from "~/utils/get-package-manager.js";
 import type packagesDependencies from "~/json/packages-dependencies.json";
 
 import { eslintInstaller } from "~/installers/eslint.js";
+import { nextInstaller } from "~/installers/next.js";
 import { prettierInstaller } from "~/installers/prettier.js";
 import { prismaInstaller } from "~/installers/prisma.js";
 
@@ -21,7 +22,7 @@ export interface InstallerOptions {
 export type Installer = (options: InstallerOptions) => void;
 
 export type PackageInstallerMap = {
-	[Package in AvailablePackages]: {
+	[Package in Exclude<AvailablePackages, `${string}-plugin-${string}`>]: {
 		inUse: boolean;
 		installer: Installer;
 	};
@@ -41,52 +42,28 @@ export function buildPackageInstallerMap(packages: AvailablePackages[]): Package
 			inUse: packages.includes("prisma"),
 			installer: prismaInstaller,
 		},
-		"next-auth": {
-			inUse: packages.includes("next-auth"),
+		"next": {
+			inUse: packages.includes("next"),
+			installer: nextInstaller,
+		},
+		"react": {
+			inUse: packages.includes("react"),
 			installer: () => {},
 		},
-		"eslint-plugin-prettier": {
-			inUse: packages.includes("eslint-plugin-prettier"),
-			installer: () => {},
-		},
-		"eslint-plugin-angular": {
-			inUse: packages.includes("eslint-plugin-angular"),
-			installer: () => {},
-		},
-		"eslint-plugin-nestjs": {
-			inUse: packages.includes("eslint-plugin-nestjs"),
-			installer: () => {},
-		},
-		"eslint-plugin-next": {
-			inUse: packages.includes("eslint-plugin-next"),
-			installer: () => {},
-		},
-		"eslint-plugin-react": {
-			inUse: packages.includes("eslint-plugin-react"),
-			installer: () => {},
-		},
-		"eslint-plugin-typescript": {
-			inUse: packages.includes("eslint-plugin-typescript"),
-			installer: () => {},
-		},
-		"eslint-plugin-vue": {
-			inUse: packages.includes("eslint-plugin-vue"),
-			installer: () => {},
-		},
-		"prettier-plugin-jsdoc": {
-			inUse: packages.includes("prettier-plugin-jsdoc"),
-			installer: () => {},
-		},
-		"prettier-plugin-prisma": {
-			inUse: packages.includes("prettier-plugin-prisma"),
-			installer: () => {},
-		},
-		"prettier-plugin-imports": {
-			inUse: packages.includes("prettier-plugin-imports"),
+		"vue": {
+			inUse: packages.includes("vue"),
 			installer: () => {},
 		},
 		"styled-components": {
 			inUse: packages.includes("styled-components"),
+			installer: () => {},
+		},
+		"sass": {
+			inUse: packages.includes("sass"),
+			installer: () => {},
+		},
+		"tailwindcss": {
+			inUse: packages.includes("tailwindcss"),
 			installer: () => {},
 		},
 		"drizzle": {
@@ -109,44 +86,12 @@ export function buildPackageInstallerMap(packages: AvailablePackages[]): Package
 			inUse: packages.includes("nestjs"),
 			installer: () => {},
 		},
-		"next": {
-			inUse: packages.includes("next"),
-			installer: () => {},
-		},
-		"passport": {
-			inUse: packages.includes("passport"),
-			installer: () => {},
-		},
-		"react": {
-			inUse: packages.includes("react"),
-			installer: () => {},
-		},
-		"sass": {
-			inUse: packages.includes("sass"),
-			installer: () => {},
-		},
 		"sequelize": {
 			inUse: packages.includes("sequelize"),
 			installer: () => {},
 		},
-		"tailwindcss": {
-			inUse: packages.includes("tailwindcss"),
-			installer: () => {},
-		},
 		"typeorm": {
 			inUse: packages.includes("typeorm"),
-			installer: () => {},
-		},
-		"vue": {
-			inUse: packages.includes("vue"),
-			installer: () => {},
-		},
-		"stylelint-plugin-sass": {
-			inUse: packages.includes("stylelint-plugin-sass"),
-			installer: () => {},
-		},
-		"stylelint-plugin-styled-components": {
-			inUse: packages.includes("stylelint-plugin-styled-components"),
 			installer: () => {},
 		},
 		"stylelint": {

@@ -26,9 +26,10 @@ export const eslintInstaller: Installer = ({
 	addPackageDependency({
 		projectDir,
 		dependencies: ["eslint", ...plugins],
+		usesTypescript: language === "typescript" || language === "both",
 	});
 
-	const eslintConfigPath = path.join(PKG_ROOT, `templates/packages/.eslintrc.json`);
+	const eslintConfigPath = path.join(PKG_ROOT, `templates/packages/eslint/.eslintrc.json`);
 	const packageJsonPath = path.join(projectDir, "package.json");
 
 	const [eslintConfig, packageJson] = [

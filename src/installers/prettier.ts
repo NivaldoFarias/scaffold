@@ -26,9 +26,10 @@ export const prettierInstaller: Installer = ({
 	addPackageDependency({
 		projectDir,
 		dependencies: ["prettier", ...plugins],
+		usesTypescript: language === "typescript" || language === "both",
 	});
 
-	const prettierConfigPath = path.join(PKG_ROOT, "templates/packages/.prettierrc.json");
+	const prettierConfigPath = path.join(PKG_ROOT, "templates/packages/prettier/.prettierrc.json");
 	const packageJsonPath = path.join(projectDir, "package.json");
 
 	const [prettierConfig, packageJson] = [

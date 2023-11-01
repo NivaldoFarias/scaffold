@@ -1,8 +1,18 @@
 {
     "next": [
         { "name": "next", "dev": false, "version": "^13.5.6" },
-        { "name": "react", "dev": false, "version": "^18.2.0" },
-        { "name": "react-dom", "dev": false, "version": "^18.2.0" }
+        {
+            "name": "react",
+            "dev": false,
+            "version": "^18.2.0",
+            "types": { "name": "@types/react", "version": "^18.2.33" }
+        },
+        {
+            "name": "react-dom",
+            "dev": false,
+            "version": "^18.2.0",
+            "types": { "name": "@types/react-dom", "version": "^18.2.14" }
+        }
     ],
     "nestjs": [
         { "name": "@nestjs/core", "dev": false, "version": "^10.2.7" },
@@ -31,22 +41,15 @@
         { "name": "@vue/compiler-sfc", "dev": false, "version": "^3.3.7" },
         { "name": "@vue/server-renderer", "dev": false, "version": "^3.3.7" }
     ],
-    "typeorm": [
-        { "name": "typeorm", "dev": false, "version": "^5.1.1" },
-        { "name": "reflect-metadata", "dev": false, "version": "^5.1.1" },
-        { "name": "mysql2", "dev": false, "version": "^3.6.2" }
-    ],
-    "sequelize": [
-        { "name": "sequelize", "dev": false, "version": "^6.33.0" },
-        { "name": "sqlite3", "dev": false, "version": "^5/1.6" }
-    ],
-    "next-auth": [{ "name": "next-auth", "dev": false, "version": "^4.23.0" }],
-    "koa": [{ "name": "koa", "dev": false, "version": "^2.14.2" }],
-    "express": [{ "name": "express", "dev": false, "version": "^4.18.2" }],
-    "passport": [{ "name": "passport", "dev": false, "version": "^0.6.0" }],
     "prettier": [{ "name": "prettier", "dev": true, "version": "^3.0.3" }],
-    "eslint": [{ "name": "eslint", "dev": true, "version": "^8.52.0" }],
-    "mongoose": [{ "name": "mongoose", "dev": false, "version": "^7.6.3" }],
+    "eslint": [
+        {
+            "name": "eslint",
+            "dev": true,
+            "version": "^8.52.0",
+            "types": { "name": "@types/eslint", "version": "^8.44.2" }
+        }
+    ],
     "sass": [{ "name": "sass", "dev": true, "version": "^1.69.4" }],
     "styled-components": [{ "name": "styled-components", "dev": false, "version": "^5.3.11" }],
     "tailwindcss": [{ "name": "tailwindcss", "dev": true, "version": "^3.3.3" }],

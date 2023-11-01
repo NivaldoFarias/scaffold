@@ -1,5 +1,4 @@
 {
-    "include": ["src/**/*.ts", ".eslintrc.cjs", ".prettierrc.cjs", "tsup.config.ts", "reset.d.ts"],
     "compilerOptions": {
         /* LANGUAGE COMPILATION OPTIONS */
         "target": "ES2020",
@@ -35,5 +34,6 @@
         "useDefineForClassFields": true,
         "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true
-    }
+    },
+    "include": ["src/**/*.ts", ".eslintrc.cjs", ".prettierrc.cjs", "tsup.config.ts", "reset.d.ts"]
 }
